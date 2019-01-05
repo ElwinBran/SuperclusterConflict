@@ -1,9 +1,9 @@
-package com.github.elwinbran.scs.app;
+package com.github.elwinbran.scc.app;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
-import com.github.elwinbran.scs.com.githhub.elwinbran.scs.support.Executor;
+import com.github.elwinbran.scc.com.githhub.elwinbran.scs.support.Executor;
 
 /**
  * Starts a single {@link Intent} in the given {@link AppCompatActivity Activity}.

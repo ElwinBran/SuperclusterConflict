@@ -1,8 +1,8 @@
-package com.github.elwinbran.scs.app;
+package com.github.elwinbran.scc.app;
 
 import android.os.Handler;
 
-import com.github.elwinbran.scs.com.githhub.elwinbran.scs.support.Executor;
+import com.github.elwinbran.scc.com.githhub.elwinbran.scs.support.Executor;
 
 public class DelayedHider implements Executor
 {

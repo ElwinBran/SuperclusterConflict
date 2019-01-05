@@ -1,4 +1,4 @@
-package com.github.elwinbran.scs.numbers;
+package com.github.elwinbran.scc.numbers;
 
 public interface NaturalNumberOperation
 {

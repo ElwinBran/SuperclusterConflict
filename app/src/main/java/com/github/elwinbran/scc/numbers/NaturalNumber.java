@@ -1,4 +1,4 @@
-package com.github.elwinbran.scs.numbers;
+package com.github.elwinbran.scc.numbers;
 
 import java.math.BigInteger;
 

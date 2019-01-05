@@ -1,12 +1,12 @@
-package com.github.elwinbran.scs.app;
+package com.github.elwinbran.scc.app;
 
 import android.view.View;
 
-import com.github.elwinbran.scs.com.githhub.elwinbran.scs.support.Executor;
+import com.github.elwinbran.scc.com.githhub.elwinbran.scs.support.Executor;
 
 /**
  * A listener that only executes the given
- * {@link com.github.elwinbran.scs.com.githhub.elwinbran.scs.support.Executor} on the action.
+ * {@link Executor} on the action.
  *
  * @author Elwin Slokker
  */

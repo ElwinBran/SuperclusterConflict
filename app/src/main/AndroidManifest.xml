@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.elwinbran.scs.app">
+    package="com.github.elwinbran.scc.app">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".StartMenu"
+            android:name="com.github.elwinbran.scc.app.StartMenu"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme"
@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NormalGame"
+        <activity android:name="com.github.elwinbran.scc.app.NormalGame"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/FullscreenTheme"/>
     </application>

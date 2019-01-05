@@ -1,4 +1,4 @@
-package com.github.elwinbran.scs.app;
+package com.github.elwinbran.scc.app;
 
 import android.view.View;
 

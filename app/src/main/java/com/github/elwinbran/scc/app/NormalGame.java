@@ -1,6 +1,8 @@
-package com.github.elwinbran.scs.app;
+package com.github.elwinbran.scc.app;
 
 import android.os.Bundle;
+
+import com.github.elwinbran.scc.app.R;
 
 public class NormalGame extends FullscreenCompatActivity
 {

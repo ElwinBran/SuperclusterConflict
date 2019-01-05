@@ -1,15 +1,12 @@
-package com.github.elwinbran.scs.app;
+package com.github.elwinbran.scc.app;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
-import com.github.elwinbran.scs.com.githhub.elwinbran.scs.support.Executor;
+import com.github.elwinbran.scc.app.R;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * The entry point of the app code and start screen of the game.
@@ -20,6 +17,9 @@ public class StartMenu extends FullscreenCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        FirebaseApp.initializeApp(this);
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+
         setContentView(R.layout.activity_start_menu);
         super.assign(findViewById(R.id.fullscreen_content));
         super.onCreate(savedInstanceState);

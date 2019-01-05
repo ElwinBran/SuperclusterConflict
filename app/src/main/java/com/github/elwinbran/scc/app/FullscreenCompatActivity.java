@@ -1,21 +1,21 @@
-package com.github.elwinbran.scs.app;
+package com.github.elwinbran.scc.app;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
-import com.github.elwinbran.scs.com.githhub.elwinbran.scs.support.Executor;
+import com.github.elwinbran.scc.com.githhub.elwinbran.scs.support.Executor;
 
 
 /**
  * A specific extendable (non-optional) activity that tries to make the extending activity
  * to be fullscreen.
  *
- * Extenders are forced to call
+ * Extenders are forced to call {@link #onCreate(Bundle)} after having themselves call
+ * {@link #setContentView}.
  * The fullscreen settings: Rotatable, Sticky, Hidden Navigation.
  *
  * NOTE: Code is a refactored version of default fullscreen code that Android Studio generates.
@@ -34,6 +34,10 @@ public abstract class FullscreenCompatActivity extends AppCompatActivity
 
     //TODO: visibility boolean property?
 
+    /**
+     * Only call after setting the layout!
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

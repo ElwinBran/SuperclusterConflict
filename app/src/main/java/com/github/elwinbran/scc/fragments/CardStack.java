@@ -1,4 +1,4 @@
-package com.github.elwinbran.scs.fragments;
+package com.github.elwinbran.scc.fragments;
 
 import android.support.v4.app.Fragment;
 
