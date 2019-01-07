@@ -1,6 +1,4 @@
 <resources>
     <string name="app_name">SuperclusterConflict</string>
     <string name="play_exclamation">Play!</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
