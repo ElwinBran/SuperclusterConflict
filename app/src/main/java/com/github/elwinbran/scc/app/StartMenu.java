@@ -18,7 +18,7 @@ public class StartMenu extends FullscreenCompatActivity
         setContentView(R.layout.activity_start_menu);
         super.assign(findViewById(R.id.fullscreen_content));
         super.onCreate(savedInstanceState);
-
+        //String key = BuildConfig.JSONBinKey;
         Intent regularGame = new Intent(this, NormalGame.class);
 
         Button playGameButton = findViewById(R.id.playButton);
