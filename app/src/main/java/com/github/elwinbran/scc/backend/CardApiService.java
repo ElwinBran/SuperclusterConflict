@@ -37,7 +37,7 @@ public interface CardApiService
      * @return The group full of cards.
      */
     @GET
-    Call<SingleJSONCardGroup> readCards(@Header(KEY_KEY) String key);
+    Call<JsonBinGroup> readCards(@Header(KEY_KEY) String key);
 
 
     /**
@@ -49,5 +49,5 @@ public interface CardApiService
      */
     @Headers({"content-type: application/json", "versioning: false"})
     @PUT
-    Call<ResponseBody> updateCards(@Body SingleJSONCardGroup cardGroup, @Header(KEY_KEY) String key);
+    Call<ResponseBody> updateCards(@Body JsonBinGroup cardGroup, @Header(KEY_KEY) String key);
 }
