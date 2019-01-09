@@ -1,5 +1,7 @@
 package com.github.elwinbran.scc.utility;
 
+import android.support.annotation.NonNull;
+
 import com.github.elwinbran.android.scc.PossibleString;
 
 /**
@@ -26,7 +28,7 @@ public class DefaultPossibleString implements PossibleString
      * @param result
      * @param present
      */
-    public DefaultPossibleString(String result, Boolean present)
+    public DefaultPossibleString(String result, @NonNull Boolean present)
     {
         this.present = present;
         this.result = result;
