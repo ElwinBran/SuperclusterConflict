@@ -1,11 +1,14 @@
 package com.github.elwinbran.scc.backend;
 
+import android.support.annotation.NonNull;
+
 import com.github.elwinbran.android.scc.Card;
 import com.github.elwinbran.scc.backend.interfaces.Group;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -18,7 +21,7 @@ public class JsonBinGroup implements Group, Serializable
 
     @SerializedName("cards")
     @Expose
-    private List<Card> cards;
+    private List<JSONSourceCard> cards;
 
     @SerializedName("name")
     @Expose
@@ -34,7 +37,14 @@ public class JsonBinGroup implements Group, Serializable
     @Override
     public Iterable<Card> cards()
     {
-        return cards;
+        return new Iterable<Card>() {
+            @NonNull
+            @Override
+            public Iterator iterator()
+            {
+                return cards.iterator();
+            }
+        };
     }
 
     @Override
