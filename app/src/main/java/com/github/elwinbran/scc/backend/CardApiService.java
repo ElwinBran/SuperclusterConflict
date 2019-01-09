@@ -18,7 +18,7 @@ import retrofit2.http.PUT;
  */
 public interface CardApiService
 {
-    final static String BASE_URL = "https://api.jsonbin.io/b/5c322bd105d34b26f2030c84/1";
+    final static String BASE_URL = "https://api.jsonbin.io/b/5c322bd105d34b26f2030c84/";
 
     final static String KEY_KEY = "secret-key";
 
@@ -36,7 +36,7 @@ public interface CardApiService
      * @param key The required key to gain access to reading.
      * @return The group full of cards.
      */
-    @GET
+    @GET("1/")
     Call<JsonBinGroup> readCards(@Header(KEY_KEY) String key);
 
 
@@ -48,6 +48,6 @@ public interface CardApiService
      * @return The full HTTP response body.
      */
     @Headers({"content-type: application/json", "versioning: false"})
-    @PUT
+    @PUT("1/")
     Call<ResponseBody> updateCards(@Body JsonBinGroup cardGroup, @Header(KEY_KEY) String key);
 }
