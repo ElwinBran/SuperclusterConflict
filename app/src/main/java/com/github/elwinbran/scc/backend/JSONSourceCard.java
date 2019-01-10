@@ -6,6 +6,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * A card from a JSON source.
@@ -15,9 +16,11 @@ import org.json.JSONArray;
 public class JSONSourceCard implements Card
 {
 
+    public JSONSourceCard() {}
+
     @SerializedName("flatProperties")
     @Expose
-    private JSONArray table;
+    private JSONObject table;
 
     @Override
     public StringTable properties()

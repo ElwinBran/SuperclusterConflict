@@ -18,12 +18,29 @@ import java.util.Map;
 public class JSONStringTable implements StringTable
 {
 
-    private final Map<String, String> strings;
+    private final Map<String, String> strings = new HashMap<>();
+
+    public JSONStringTable(JSONObject rawTable)
+    {
+
+        for (int i = 0; i < rawTable.length(); i++)
+        {
+            try
+            {
+                JSONObject item = rawTable.getJSONObject("stub!");
+                String key = item.keys().next();
+                String value = item.getString(key);
+                strings.put(key, value);
+            }
+            catch (JSONException e)
+            {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
     public JSONStringTable(JSONArray rawTable)
     {
-        ;
-        strings = new HashMap<>();
         for (int i = 0; i < rawTable.length(); i++)
         {
             try
