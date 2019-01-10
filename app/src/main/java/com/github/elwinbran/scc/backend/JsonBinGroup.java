@@ -18,33 +18,48 @@ import java.util.List;
  */
 public class JsonBinGroup implements Group, Serializable
 {
+    private final boolean fromJson;
 
     @SerializedName("cards")
     @Expose
     private List<JSONSourceCard> cards;
 
+    private Iterable<Card> objectCards;
+
     @SerializedName("name")
     @Expose
     private String name;
 
-    public JsonBinGroup(){}
-
-    public JsonBinGroup(String name, List<Card> cards)
+    public JsonBinGroup()
     {
+        this.fromJson = true;
+    }
 
+    public JsonBinGroup(String name, Iterable<Card> cards)
+    {
+        this.name = name;
+        this.fromJson = false;
+        this.objectCards = cards;
     }
 
     @Override
     public Iterable<Card> cards()
     {
-        return new Iterable<Card>() {
-            @NonNull
-            @Override
-            public Iterator iterator()
-            {
-                return cards.iterator();
-            }
-        };
+        if(fromJson)
+        {
+            return new Iterable<Card>() {
+                @NonNull
+                @Override
+                public Iterator iterator()
+                {
+                    return cards.iterator();
+                }
+            };
+        }
+        else
+        {
+            return this.objectCards;
+        }
     }
 
     @Override
