@@ -24,7 +24,7 @@ public class PropertySplitter implements Function<String, Pair<String, String>>
     {
         int splitIndex = s.indexOf(splitSymbol);
         String key = s.substring(0, splitIndex);
-        String value = s.substring(splitIndex + 1, s.length() - 1);
+        String value = s.substring(splitIndex + 1, s.length());
         return new Pair<>(key, value);
     }
 }
