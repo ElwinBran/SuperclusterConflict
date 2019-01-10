@@ -32,8 +32,6 @@ public abstract class FullscreenCompatActivity extends AppCompatActivity
 
     private View rootView;
 
-    //TODO: visibility boolean property?
-
     /**
      * Only call after setting the layout!
      * @param savedInstanceState
