@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">SuperclusterConflict</string>
     <string name="play_exclamation">Play!</string>
+    <string name="wins_declaration">Wins: </string>
+    <string name="losses_declaration">Losses: </string>
 </resources>
