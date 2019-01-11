@@ -4,24 +4,12 @@ import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.github.elwinbran.android.scc.Card;
-import com.github.elwinbran.android.scc.CardGroups;
-import com.github.elwinbran.scc.backend.CardApiService;
-import com.github.elwinbran.scc.backend.JsonBinGroup;
-import com.github.elwinbran.scc.backend.RetroCardRepository;
-import com.github.elwinbran.scc.backend.interfaces.CardRepository;
+import com.github.elwinbran.scc.backend.RetroStatistics;
 import com.github.elwinbran.scc.backend.interfaces.Statistic;
-import com.github.elwinbran.scc.service.GameStatistics;
-import com.github.elwinbran.scc.utility.SimpleCardGroups;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
+import com.github.elwinbran.scc.service.GameStatisticsViewModel;
 
 /**
  * The entry point of the app code and start screen of the game.
@@ -37,7 +25,7 @@ public class StartMenu extends FullscreenCompatActivity
         super.onCreate(savedInstanceState);
         Intent regularGame = new Intent(this, NormalGame.class);
         String key = BuildConfig.ApiKey;
-        GameStatistics staticicsSerivce = null;
+        GameStatisticsViewModel staticicsSerivce = new RetroStatistics(key);
         staticicsSerivce.retrieve().observe(this, new Observer<Statistic>() {
             @Override
             public void onChanged(@Nullable Statistic statistic)
