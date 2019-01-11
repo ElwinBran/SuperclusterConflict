@@ -4,12 +4,21 @@ import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.github.elwinbran.scc.backend.JSONStatistic;
 import com.github.elwinbran.scc.backend.RetroStatistics;
+import com.github.elwinbran.scc.backend.StatisticApiService;
 import com.github.elwinbran.scc.backend.interfaces.Statistic;
 import com.github.elwinbran.scc.service.GameStatisticsViewModel;
+
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * The entry point of the app code and start screen of the game.
@@ -30,7 +39,7 @@ public class StartMenu extends FullscreenCompatActivity
             @Override
             public void onChanged(@Nullable Statistic statistic)
             {
-                Toast.makeText(getBaseContext(), statisticText(statistic), Toast.LENGTH_SHORT);
+                Toast.makeText(StartMenu.this, statisticText(statistic), Toast.LENGTH_SHORT);
             }
         });
         Button playGameButton = findViewById(R.id.playButton);

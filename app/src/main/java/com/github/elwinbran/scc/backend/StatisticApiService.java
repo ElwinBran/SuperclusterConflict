@@ -31,6 +31,6 @@ public interface StatisticApiService
      * @param key The required key to gain access to reading.
      * @return An object that contains the statistics of the player like wins and losses.
      */
-    @GET
+    @GET(".")
     Call<JSONStatistic> readStatistic(@Header(CardApiService.KEY_KEY) String key);
 }
