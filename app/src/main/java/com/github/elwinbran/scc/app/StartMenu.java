@@ -39,7 +39,7 @@ public class StartMenu extends FullscreenCompatActivity
             @Override
             public void onChanged(@Nullable Statistic statistic)
             {
-                Toast.makeText(StartMenu.this, statisticText(statistic), Toast.LENGTH_SHORT);
+                Toast.makeText(StartMenu.this, statisticText(statistic), Toast.LENGTH_SHORT).show();
             }
         });
         Button playGameButton = findViewById(R.id.playButton);
@@ -56,6 +56,7 @@ public class StartMenu extends FullscreenCompatActivity
     {
         String message = getString(R.string.wins_declaration);
         message = message.concat(current.wins().toString());
+        message = message.concat("  ");
         message = message.concat(getString(R.string.losses_declaration));
         message = message.concat(current.losses().toString());
         return message;
