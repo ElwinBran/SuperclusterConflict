@@ -3,7 +3,7 @@ package com.github.elwinbran.scc.backend;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
-import com.github.elwinbran.scc.backend.interfaces.Statistic;
+import com.github.elwinbran.scc.api.Statistic;
 import com.github.elwinbran.scc.service.GameStatisticsViewModel;
 
 import retrofit2.Call;

@@ -2,7 +2,7 @@ package com.github.elwinbran.scc.backend;
 
 import java.io.Serializable;
 
-import com.github.elwinbran.scc.backend.interfaces.Statistic;
+import com.github.elwinbran.scc.api.Statistic;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

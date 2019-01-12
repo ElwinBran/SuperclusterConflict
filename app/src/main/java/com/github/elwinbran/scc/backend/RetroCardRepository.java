@@ -1,7 +1,7 @@
 package com.github.elwinbran.scc.backend;
 
 import com.github.elwinbran.android.scc.CardGroups;
-import com.github.elwinbran.scc.backend.interfaces.CardRepository;
+import com.github.elwinbran.scc.api.CardRepository;
 import com.github.elwinbran.scc.utility.SimpleCardGroups;
 
 import java.io.IOException;

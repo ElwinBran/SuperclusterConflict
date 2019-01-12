@@ -3,7 +3,7 @@ package com.github.elwinbran.scc.backend;
 import android.support.annotation.NonNull;
 
 import com.github.elwinbran.android.scc.Card;
-import com.github.elwinbran.scc.backend.interfaces.Group;
+import com.github.elwinbran.scc.api.Group;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

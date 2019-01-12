@@ -1,4 +1,4 @@
-package com.github.elwinbran.scc.backend.interfaces;
+package com.github.elwinbran.scc.api;
 
 import com.github.elwinbran.android.scc.Card;
 
