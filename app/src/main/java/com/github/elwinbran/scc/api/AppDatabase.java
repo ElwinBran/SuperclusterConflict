@@ -16,8 +16,8 @@ import com.github.elwinbran.scc.backend.ROOMPlayer;
  *
  * @author Elwin Slokker
  */
-//@Database(entities = {ROOMGameState.class, ROOMPlayer.class}, version = 1)
-public abstract class AppDatabase// extends RoomDatabase
+@Database(entities = {ROOMGameState.class, ROOMPlayer.class}, version = 1)
+public abstract class AppDatabase extends RoomDatabase
 {
 
     /**
@@ -43,8 +43,8 @@ public abstract class AppDatabase// extends RoomDatabase
     {
         if(sInstance == null)
         {
-            //sInstance = Room.databaseBuilder(context, AppDatabase.class,
-            //        NAME_DATABASE).allowMainThreadQueries().build();
+            sInstance = Room.databaseBuilder(context, AppDatabase.class,
+                    NAME_DATABASE).allowMainThreadQueries().build();
         }
         return sInstance;
     }
