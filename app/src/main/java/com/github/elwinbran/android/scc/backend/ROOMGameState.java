@@ -8,6 +8,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import com.github.elwinbran.android.scc.utility.ROOMBoardConverters;
+import com.github.elwinbran.android.scc.utility.ROOMCardGroupsConverters;
 import com.github.elwinbran.android.scc.utility.ROOMPlayerConverters;
 
 /**
@@ -31,6 +33,10 @@ public class ROOMGameState implements Parcelable
     @TypeConverters(ROOMPlayerConverters.class)
     private ROOMPlayer secondPlayer;
 
+    @ColumnInfo(name = "boardState")
+    @TypeConverters(ROOMBoardConverters.class)
+    private ROOMBoard boardState;
+
 
     public ROOMGameState(){}
 
@@ -39,6 +45,7 @@ public class ROOMGameState implements Parcelable
         name = in.readString();
         firstPlayer = ROOMPlayerConverters.fromString(in.readString());
         secondPlayer = ROOMPlayerConverters.fromString(in.readString());
+        boardState = ROOMBoardConverters.fromString(in.readString());
     }
 
     public static final Creator<ROOMGameState> CREATOR = new Creator<ROOMGameState>()
@@ -87,6 +94,16 @@ public class ROOMGameState implements Parcelable
         this.secondPlayer = player;
     }
 
+    public ROOMBoard getBoardState()
+    {
+        return this.boardState;
+    }
+
+    public void setBoardState(ROOMBoard boardState)
+    {
+        this.boardState = boardState;
+    }
+
 
     @Override
     public int describeContents()
@@ -97,5 +114,9 @@ public class ROOMGameState implements Parcelable
     @Override
     public void writeToParcel(Parcel parcel, int i)
     {
+        parcel.writeString(name);
+        parcel.writeString(ROOMPlayerConverters.playerToString(firstPlayer));
+        parcel.writeString(ROOMPlayerConverters.playerToString(secondPlayer));
+        parcel.writeString(ROOMBoardConverters.toString(this.boardState));
     }
 }
