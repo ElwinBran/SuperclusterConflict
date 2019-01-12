@@ -3,4 +3,7 @@
     <string name="play_exclamation">Play!</string>
     <string name="wins_declaration">Wins: </string>
     <string name="losses_declaration">Losses: </string>
+    <string name="demo_game_state_name">default-temp:1</string>
+    <string name="demo_player_name">Overseer</string>
+    <string name="demo_computer_opponent_name">Enemy</string>
 </resources>
