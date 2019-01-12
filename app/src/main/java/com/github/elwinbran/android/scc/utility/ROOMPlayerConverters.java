@@ -5,7 +5,7 @@ import android.arch.persistence.room.TypeConverter;
 import com.github.elwinbran.android.scc.backend.ROOMPlayer;
 
 /**
- * TypeConverter methods for translating ROOM entities.
+ * TypeConverter methods for translating the {@link ROOMPlayer} entities.
  *
  * @author Elwin Slokker
  */
