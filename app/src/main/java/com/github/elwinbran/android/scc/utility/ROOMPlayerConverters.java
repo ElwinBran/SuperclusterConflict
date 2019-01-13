@@ -27,8 +27,12 @@ public class ROOMPlayerConverters
     }
 
     @TypeConverter
-    public static String playerToString(ROOMPlayer player)
+    public static String playerToString(ROOMPlayer value)
     {
-        return player.getName();
+        if(value == null)
+        {
+            return null;
+        }
+        return value.getName();
     }
 }

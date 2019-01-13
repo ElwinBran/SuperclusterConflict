@@ -18,24 +18,38 @@ public class ROOMCardGroupsConverters
     @TypeConverter
     public static ROOMCardGroups fromString(String value)
     {
+        if(value == null)
+        {
+            return null;
+        }
         return null;
     }
 
     @TypeConverter
     public static String toString(ROOMCardGroups value)
     {
+        if(value == null)
+        {
+            return null;
+        }
         return null;
     }
 
     @TypeConverter
     public static Map<String,Iterable<ROOMCard>> mapFromString(String value)
     {
-
+        if(value == null)
+        {
+            return null;
+        }
     }
 
     @TypeConverter
     public static String stringFromMap(Map<String,Iterable<ROOMCard>> value)
     {
-
+        if(value == null)
+        {
+            return null;
+        }
     }
 }

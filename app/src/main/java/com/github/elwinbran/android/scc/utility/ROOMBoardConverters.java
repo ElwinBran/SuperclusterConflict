@@ -14,12 +14,20 @@ public class ROOMBoardConverters
     @TypeConverter
     public static ROOMBoard fromString(String value)
     {
+        if(value == null)
+        {
+            return null;
+        }
         return null;
     }
 
     @TypeConverter
     public static String toString(ROOMBoard value)
     {
+        if(value == null)
+        {
+            return null;
+        }
         return null;
     }
 }

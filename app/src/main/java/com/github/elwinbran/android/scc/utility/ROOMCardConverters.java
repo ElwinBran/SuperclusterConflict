@@ -16,24 +16,38 @@ public class ROOMCardConverters
     @TypeConverter
     public static ROOMCard fromString(String value)
     {
+        if(value == null)
+        {
+            return null;
+        }
         return null;
     }
 
     @TypeConverter
     public static String toString(ROOMCard value)
     {
+        if(value == null)
+        {
+            return null;
+        }
         return null;
     }
 
     @TypeConverter
     public static Map<String, String> mapFromString(String value)
     {
-
+        if(value == null)
+        {
+            return null;
+        }
     }
 
     @TypeConverter
     public static String stringFromMap(Map<String, String> value)
     {
-
+        if(value == null)
+        {
+            return null;
+        }
     }
 }
