@@ -4,7 +4,10 @@ import android.arch.persistence.room.TypeConverter;
 
 import com.github.elwinbran.android.scc.backend.ROOMCard;
 import com.github.elwinbran.android.scc.backend.ROOMCardGroups;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +26,9 @@ public class ROOMCardGroupsConverters
         {
             return null;
         }
-        return null;
+        Type type =
+                new TypeToken<ROOMCardGroups>(){}.getType();
+        return new Gson().fromJson(value, type);
     }
 
     @TypeConverter
@@ -33,7 +38,8 @@ public class ROOMCardGroupsConverters
         {
             return null;
         }
-        return null;
+        Gson gson = new Gson();
+        return gson.toJson(value);
     }
 
     @TypeConverter
@@ -43,6 +49,9 @@ public class ROOMCardGroupsConverters
         {
             return null;
         }
+        Type type =
+                new TypeToken<Map<String, List<ROOMCard>>>(){}.getType();
+        return new Gson().fromJson(value, type);
     }
 
     @TypeConverter
@@ -52,5 +61,7 @@ public class ROOMCardGroupsConverters
         {
             return null;
         }
+        Gson gson = new Gson();
+        return gson.toJson(value);
     }
 }

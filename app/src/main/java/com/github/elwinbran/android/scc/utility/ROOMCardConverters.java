@@ -24,7 +24,9 @@ public class ROOMCardConverters
         {
             return null;
         }
-        return null;
+        Type type =
+                new TypeToken<ROOMCard>(){}.getType();
+        return new Gson().fromJson(value, type);
     }
 
     @TypeConverter
@@ -34,7 +36,8 @@ public class ROOMCardConverters
         {
             return null;
         }
-        return null;
+        Gson gson = new Gson();
+        return gson.toJson(value);
     }
 
     @TypeConverter
@@ -45,7 +48,7 @@ public class ROOMCardConverters
             return null;
         }
         Type type =
-                new TypeToken<ROOMBoard>(){}.getType();
+                new TypeToken<Map<String, String>>(){}.getType();
         return new Gson().fromJson(value, type);
     }
 

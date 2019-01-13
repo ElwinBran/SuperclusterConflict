@@ -23,9 +23,9 @@ public class ROOMGameNumbersConverters
         {
             return null;
         }
-        ROOMGameNumbers newNumbers = new ROOMGameNumbers();
-        newNumbers.setNumbers(fromString(value));
-        return newNumbers;
+        Type mapType =
+                new TypeToken<ROOMGameNumbers>(){}.getType();
+        return new Gson().fromJson(value, mapType);
     }
 
     @TypeConverter
@@ -35,7 +35,8 @@ public class ROOMGameNumbersConverters
         {
             return null;
         }
-        return fromStringMap(value.getNumbers());
+        Gson gson = new Gson();
+        return gson.toJson(value);
     }
 
     @TypeConverter
