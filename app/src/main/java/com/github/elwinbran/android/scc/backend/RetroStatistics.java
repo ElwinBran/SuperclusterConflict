@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.github.elwinbran.android.scc.api.Statistic;
-import com.github.elwinbran.android.scc.service.GameStatisticsViewModel;
+import com.github.elwinbran.android.scc.api.GameStatisticsViewModel;
 
 import retrofit2.Call;
 import retrofit2.Callback;

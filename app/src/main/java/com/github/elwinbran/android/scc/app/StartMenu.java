@@ -9,8 +9,7 @@ import android.widget.Toast;
 
 import com.github.elwinbran.android.scc.api.Statistic;
 import com.github.elwinbran.android.scc.backend.RetroStatistics;
-import com.github.elwinbran.android.scc.service.GameStatisticsViewModel;
-import com.github.elwinbran.android.scc.app.BuildConfig;
+import com.github.elwinbran.android.scc.api.GameStatisticsViewModel;
 
 /**
  * The entry point of the app code and start screen of the game.

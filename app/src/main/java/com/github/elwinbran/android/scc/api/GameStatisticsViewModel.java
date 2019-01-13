@@ -1,4 +1,4 @@
-package com.github.elwinbran.android.scc.service;
+package com.github.elwinbran.android.scc.api;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
