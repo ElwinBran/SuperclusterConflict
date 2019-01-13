@@ -2,6 +2,7 @@ package com.github.elwinbran.android.scc.app;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 
 /**
@@ -17,6 +18,7 @@ public class CardDetailActivity extends AppCompatActivity
         super.onCreate(savedInstances);
         setContentView(R.layout.popup_card_detail);
 
+        RecyclerView detailList = findViewById(R.id.card_detail_view);
         DisplayMetrics dm  = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         //setBackgroundDrawable(new ColorDrawable(Color.BLACK));
