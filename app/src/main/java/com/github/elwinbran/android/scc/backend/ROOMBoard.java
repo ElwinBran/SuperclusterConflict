@@ -27,6 +27,8 @@ public class ROOMBoard implements Parcelable
     @TypeConverters(ROOMGameNumbersConverters.class)
     private ROOMGameNumbers numbers;
 
+    public ROOMBoard() {}
+
     public ROOMBoard(Parcel in)
     {
         groups = ROOMCardGroupsConverters.fromString(in.readString());
@@ -78,7 +80,7 @@ public class ROOMBoard implements Parcelable
     @Override
     public void writeToParcel(Parcel parcel, int i)
     {
-        parcel.writeParcelable(groups, i);
-        parcel.writeParcelable(numbers, i);
+        parcel.writeString(ROOMCardGroupsConverters.toString(groups));
+        parcel.writeString(ROOMGameNumbersConverters.numbersToString(numbers));
     }
 }
