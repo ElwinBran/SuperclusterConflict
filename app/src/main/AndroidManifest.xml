@@ -24,6 +24,8 @@
         <activity android:name=".NormalGame"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/FullscreenTheme"/>
+        <activity android:name=".CardDetailActivity"
+            android:theme="@style/PopupTheme"/>
     </application>
 
 </manifest>
