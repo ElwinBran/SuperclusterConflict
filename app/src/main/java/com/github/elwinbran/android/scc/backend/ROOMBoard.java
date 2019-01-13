@@ -2,16 +2,19 @@ package com.github.elwinbran.android.scc.backend;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.TypeConverter;
+import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import com.github.elwinbran.android.scc.utility.ROOMCardGroupsConverters;
 import com.github.elwinbran.android.scc.utility.ROOMGameNumbersConverters;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Used as replacement for {@link com.github.elwinbran.android.scc.Board} in the ROOM database.
+ * Also includes GSON annotations for correct parcelization in the ROOM database.
  *
  * @author Elwin Slokker
  */
@@ -19,10 +22,17 @@ import com.github.elwinbran.android.scc.utility.ROOMGameNumbersConverters;
 public class ROOMBoard implements Parcelable
 {
 
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @SerializedName("id")
+    private int id;
+
+    @SerializedName("groups")
     @ColumnInfo(name = "groups")
     @TypeConverters(ROOMCardGroupsConverters.class)
     private ROOMCardGroups groups;
 
+    @SerializedName("numbers")
     @ColumnInfo(name = "numbers")
     @TypeConverters(ROOMGameNumbersConverters.class)
     private ROOMGameNumbers numbers;
@@ -31,6 +41,7 @@ public class ROOMBoard implements Parcelable
 
     public ROOMBoard(Parcel in)
     {
+        id = in.readInt();
         groups = ROOMCardGroupsConverters.fromString(in.readString());
         numbers = ROOMGameNumbersConverters.numbersFromString(in.readString());
     }
@@ -49,6 +60,17 @@ public class ROOMBoard implements Parcelable
             return new ROOMBoard[size];
         }
     };
+
+    @NonNull
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(@NonNull int id)
+    {
+        this.id = id;
+    }
 
     public ROOMCardGroups getGroups()
     {
@@ -80,6 +102,7 @@ public class ROOMBoard implements Parcelable
     @Override
     public void writeToParcel(Parcel parcel, int i)
     {
+        parcel.writeInt(id);
         parcel.writeString(ROOMCardGroupsConverters.toString(groups));
         parcel.writeString(ROOMGameNumbersConverters.numbersToString(numbers));
     }

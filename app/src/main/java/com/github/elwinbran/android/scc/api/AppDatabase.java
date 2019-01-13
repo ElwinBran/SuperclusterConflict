@@ -5,6 +5,10 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
+import com.github.elwinbran.android.scc.backend.ROOMBoard;
+import com.github.elwinbran.android.scc.backend.ROOMCard;
+import com.github.elwinbran.android.scc.backend.ROOMCardGroups;
+import com.github.elwinbran.android.scc.backend.ROOMGameNumbers;
 import com.github.elwinbran.android.scc.backend.ROOMGameState;
 import com.github.elwinbran.android.scc.backend.ROOMPlayer;
 
@@ -15,7 +19,10 @@ import com.github.elwinbran.android.scc.backend.ROOMPlayer;
  *
  * @author Elwin Slokker
  */
-@Database(entities = {ROOMGameState.class, ROOMPlayer.class}, version = 1)
+@Database(entities = {
+        ROOMGameState.class, ROOMPlayer.class, ROOMGameNumbers.class,
+        ROOMBoard.class, ROOMCard.class, ROOMCardGroups.class
+                }, version = 1)
 public abstract class AppDatabase extends RoomDatabase
 {
 

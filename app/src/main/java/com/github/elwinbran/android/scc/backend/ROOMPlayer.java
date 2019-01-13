@@ -6,6 +6,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Used as replacement for {@link com.github.elwinbran.android.scc.Player} in the ROOM database.
  *
@@ -14,6 +16,7 @@ import android.support.annotation.NonNull;
 @Entity(tableName = "player")
 public class ROOMPlayer implements Parcelable
 {
+    @SerializedName("name")
     @PrimaryKey
     @NonNull
     private String name;

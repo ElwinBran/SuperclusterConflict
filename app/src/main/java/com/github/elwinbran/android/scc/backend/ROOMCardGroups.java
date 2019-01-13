@@ -2,11 +2,14 @@ package com.github.elwinbran.android.scc.backend;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import com.github.elwinbran.android.scc.utility.ROOMCardGroupsConverters;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.Map;
 
@@ -19,6 +22,12 @@ import java.util.Map;
 public class ROOMCardGroups implements Parcelable
 {
 
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @SerializedName("id")
+    private int id;
+
+    @SerializedName("cardMap")
     @ColumnInfo(name = "cardMap")
     @TypeConverters(ROOMCardGroupsConverters.class)
     private Map<String,Iterable<ROOMCard>> cardMap;
@@ -27,6 +36,7 @@ public class ROOMCardGroups implements Parcelable
 
     public ROOMCardGroups(Parcel in)
     {
+        id = in.readInt();
         cardMap = ROOMCardGroupsConverters.mapFromString(in.readString());
     }
 
@@ -45,6 +55,27 @@ public class ROOMCardGroups implements Parcelable
         }
     };
 
+    public Map<String, Iterable<ROOMCard>> getCardMap()
+    {
+        return cardMap;
+    }
+
+    public void setCardMap(Map<String, Iterable<ROOMCard>> cardMap)
+    {
+        this.cardMap = cardMap;
+    }
+
+    @NonNull
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(@NonNull int id)
+    {
+        this.id = id;
+    }
+
     @Override
     public int describeContents()
     {
@@ -54,6 +85,7 @@ public class ROOMCardGroups implements Parcelable
     @Override
     public void writeToParcel(Parcel parcel, int i)
     {
+        parcel.writeInt(id);
         parcel.writeString(ROOMCardGroupsConverters.stringFromMap(cardMap));
     }
 }
