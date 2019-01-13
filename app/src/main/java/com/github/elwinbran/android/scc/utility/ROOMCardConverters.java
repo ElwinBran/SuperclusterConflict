@@ -2,8 +2,12 @@ package com.github.elwinbran.android.scc.utility;
 
 import android.arch.persistence.room.TypeConverter;
 
+import com.github.elwinbran.android.scc.backend.ROOMBoard;
 import com.github.elwinbran.android.scc.backend.ROOMCard;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.Map;
 
 /**
@@ -40,6 +44,9 @@ public class ROOMCardConverters
         {
             return null;
         }
+        Type type =
+                new TypeToken<ROOMBoard>(){}.getType();
+        return new Gson().fromJson(value, type);
     }
 
     @TypeConverter
@@ -49,5 +56,7 @@ public class ROOMCardConverters
         {
             return null;
         }
+        Gson gson = new Gson();
+        return gson.toJson(value);
     }
 }

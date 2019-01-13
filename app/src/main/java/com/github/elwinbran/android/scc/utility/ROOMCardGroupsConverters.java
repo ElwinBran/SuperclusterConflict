@@ -5,6 +5,7 @@ import android.arch.persistence.room.TypeConverter;
 import com.github.elwinbran.android.scc.backend.ROOMCard;
 import com.github.elwinbran.android.scc.backend.ROOMCardGroups;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,7 +37,7 @@ public class ROOMCardGroupsConverters
     }
 
     @TypeConverter
-    public static Map<String,Iterable<ROOMCard>> mapFromString(String value)
+    public static Map<String, List<ROOMCard>> mapFromString(String value)
     {
         if(value == null)
         {
@@ -45,7 +46,7 @@ public class ROOMCardGroupsConverters
     }
 
     @TypeConverter
-    public static String stringFromMap(Map<String,Iterable<ROOMCard>> value)
+    public static String stringFromMap(Map<String, List<ROOMCard>> value)
     {
         if(value == null)
         {

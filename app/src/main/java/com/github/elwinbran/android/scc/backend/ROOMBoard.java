@@ -42,7 +42,8 @@ public class ROOMBoard implements Parcelable
     public ROOMBoard(Parcel in)
     {
         id = in.readInt();
-        groups = ROOMCardGroupsConverters.fromString(in.readString());
+        //groups = ROOMCardGroupsConverters.fromString(in.readString());
+        groups = in.readParcelable(ROOMCardGroups.class.getClassLoader());
         numbers = ROOMGameNumbersConverters.numbersFromString(in.readString());
     }
 
@@ -103,7 +104,8 @@ public class ROOMBoard implements Parcelable
     public void writeToParcel(Parcel parcel, int i)
     {
         parcel.writeInt(id);
-        parcel.writeString(ROOMCardGroupsConverters.toString(groups));
+        //parcel.writeString(ROOMCardGroupsConverters.toString(groups));
+        parcel.writeParcelable(groups, i);
         parcel.writeString(ROOMGameNumbersConverters.numbersToString(numbers));
     }
 }

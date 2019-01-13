@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import com.github.elwinbran.android.scc.utility.ROOMCardGroupsConverters;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,7 +31,7 @@ public class ROOMCardGroups implements Parcelable
     @SerializedName("cardMap")
     @ColumnInfo(name = "cardMap")
     @TypeConverters(ROOMCardGroupsConverters.class)
-    private Map<String,Iterable<ROOMCard>> cardMap;
+    private Map<String,List<ROOMCard>> cardMap;
 
     public ROOMCardGroups(){}
 
@@ -55,12 +56,12 @@ public class ROOMCardGroups implements Parcelable
         }
     };
 
-    public Map<String, Iterable<ROOMCard>> getCardMap()
+    public Map<String, List<ROOMCard>> getCardMap()
     {
         return cardMap;
     }
 
-    public void setCardMap(Map<String, Iterable<ROOMCard>> cardMap)
+    public void setCardMap(Map<String, List<ROOMCard>> cardMap)
     {
         this.cardMap = cardMap;
     }
