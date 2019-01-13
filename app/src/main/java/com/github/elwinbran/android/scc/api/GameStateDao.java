@@ -21,7 +21,7 @@ import java.util.List;
 public interface GameStateDao
 {
     @Query("SELECT * FROM gameState")
-    public LiveData<List<ROOMGameState>> getAllEntries();
+    public List<ROOMGameState> getAllEntries();
 
     @Insert
     public void insertEntry(ROOMGameState entry);
