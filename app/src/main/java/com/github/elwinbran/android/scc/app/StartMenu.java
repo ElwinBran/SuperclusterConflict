@@ -10,10 +10,13 @@ import android.widget.Toast;
 import com.github.elwinbran.android.scc.api.Statistic;
 import com.github.elwinbran.android.scc.backend.RetroStatistics;
 import com.github.elwinbran.android.scc.service.GameStatisticsViewModel;
-import com.github.elwinbran.scc.app.BuildConfig;
+import com.github.elwinbran.android.scc.app.BuildConfig;
 
 /**
  * The entry point of the app code and start screen of the game.
+ * Uses extension of the full screen mode code.
+ *
+ * @author Elwin Slokker
  */
 public class StartMenu extends FullscreenCompatActivity
 {
@@ -21,8 +24,8 @@ public class StartMenu extends FullscreenCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        setContentView(com.github.elwinbran.scc.app.R.layout.activity_start_menu);
-        super.assign(findViewById(com.github.elwinbran.scc.app.R.id.fullscreen_content));
+        setContentView(R.layout.activity_start_menu);
+        super.assign(findViewById(R.id.fullscreen_content));
         super.onCreate(savedInstanceState);
         Intent regularGame = new Intent(this, NormalGame.class);
         String key = BuildConfig.ApiKey;
@@ -34,7 +37,7 @@ public class StartMenu extends FullscreenCompatActivity
                 Toast.makeText(StartMenu.this, statisticText(statistic), Toast.LENGTH_SHORT).show();
             }
         });
-        Button playGameButton = findViewById(com.github.elwinbran.scc.app.R.id.playButton);
+        Button playGameButton = findViewById(R.id.playButton);
         playGameButton.setOnClickListener(new ExecutorListener(
                 new IntentStarter(this, regularGame)));
         // Upon interacting with UI controls, delay any scheduled hide()
@@ -46,10 +49,10 @@ public class StartMenu extends FullscreenCompatActivity
 
     private String statisticText(Statistic current)
     {
-        String message = getString(com.github.elwinbran.scc.app.R.string.wins_declaration);
+        String message = getString(R.string.wins_declaration);
         message = message.concat(current.wins().toString());
         message = message.concat("  ");
-        message = message.concat(getString(com.github.elwinbran.scc.app.R.string.losses_declaration));
+        message = message.concat(getString(R.string.losses_declaration));
         message = message.concat(current.losses().toString());
         return message;
     }
