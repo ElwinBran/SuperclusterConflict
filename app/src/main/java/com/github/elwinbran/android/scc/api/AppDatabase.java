@@ -42,7 +42,7 @@ public abstract class AppDatabase extends RoomDatabase
     /**
      * Use this method to retrieve the only Database object.
      *
-     * @param context ?
+     * @param context the current (application) context for the database.
      * @return A fully functional {@code AppDatabase} object.
      */
     public static AppDatabase getInstance(Context context)
