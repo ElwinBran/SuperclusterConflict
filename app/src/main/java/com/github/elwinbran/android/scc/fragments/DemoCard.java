@@ -21,7 +21,6 @@ public class DemoCard extends Fragment
 {
     private ImageView demoCardBack;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState)
     {

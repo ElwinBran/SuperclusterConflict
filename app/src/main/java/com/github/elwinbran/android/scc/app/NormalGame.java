@@ -5,11 +5,30 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.github.elwinbran.android.scc.Board;
+import com.github.elwinbran.android.scc.GameState;
+import com.github.elwinbran.android.scc.PlayerSequence;
 import com.github.elwinbran.android.scc.api.AppDatabase;
 import com.github.elwinbran.android.scc.app.R;
+import com.github.elwinbran.android.scc.backend.ROOMBoard;
+import com.github.elwinbran.android.scc.backend.ROOMCard;
+import com.github.elwinbran.android.scc.backend.ROOMCardGroups;
+import com.github.elwinbran.android.scc.backend.ROOMGameNumbers;
+import com.github.elwinbran.android.scc.backend.ROOMGameState;
+import com.github.elwinbran.android.scc.backend.ROOMPlayer;
+import com.github.elwinbran.android.scc.fragments.DemoCard;
+import com.github.elwinbran.android.scc.support.GameStateProperty;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The normal game activity of Supercluster Conflict.
@@ -23,6 +42,8 @@ public class NormalGame extends FullscreenCompatActivity
 
     private final GameStateProperty state = new GameStateProperty(null);
 
+    private LinearLayout playerCardDisplayView;
+
     @Override
     public void onCreate(Bundle savedInstance)
     {
@@ -30,16 +51,68 @@ public class NormalGame extends FullscreenCompatActivity
         super.assign(findViewById(R.id.root_constraint_layout));
         super.onCreate(savedInstance);
         gameStateDB = AppDatabase.getInstance(this);
-        final LinearLayout playerCardDisplayView = findViewById(R.id.player_cards_view);
+        playerCardDisplayView = findViewById(R.id.player_cards_view);
         final LinearLayout opponentCardDisplayView = findViewById(R.id.opponent_cards_view);
         final Button addCardButton = findViewById(R.id.add_button);
+        addCardButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                addFragment();
+            }
+        });
+        GameState currentState = new GameState()
+        {
+            @Override
+            public PlayerSequence playerSequence()
+            {
+                return null;
+            }
 
-        FragmentManager fragMan = getFragmentManager();
-        FragmentTransaction fragTransaction = fragMan.beginTransaction();
+            @Override
+            public Board fullBoard()
+            {
+                return null;
+            }
+        };
 
-        Fragment myFrag = new DemoCard();
-        fragTransaction.add(playerCardDisplayView.getId(), myFrag , "fragment");
-        fragTransaction.commit();
+
+
+        ROOMGameState temp = new ROOMGameState();
+        temp.setName(getString(R.string.demo_game_state_name));
+        ROOMPlayer player = new ROOMPlayer();
+        player.setName(getString(R.string.demo_player_name));
+        ROOMPlayer opponent = new ROOMPlayer();
+        player.setName(getString(R.string.demo_computer_opponent_name));
+
+        ROOMBoard tempBoard = new ROOMBoard();
+        ROOMCardGroups tempGroups = new ROOMCardGroups();
+        Map<String, List<ROOMCard>> tempGroupsMap = new HashMap<>();
+        List<ROOMCard> tempCardList = new LinkedList<>();
+        //Cards
+        ROOMCard tempCard = new ROOMCard();
+        Map<String, String> tempCardValues = new HashMap<>();
+        tempCardValues.put("name", "Explorer");
+        tempCard.setValues(tempCardValues);
+        tempCardList.add(tempCard);
+
+        //Groups
+        tempGroupsMap.put("hand", tempCardList);
+        tempGroups.setCardMap(tempGroupsMap);
+
+        //Numbers
+        ROOMGameNumbers tempNumbers = new ROOMGameNumbers();
+        Map<String, Integer> tempNumbersMap = new HashMap<>();
+        tempNumbersMap.put(getString(R.string.health_key), 2);
+        tempNumbers.setNumbers(tempNumbersMap);
+        tempBoard.setGroups(tempGroups);
+        tempBoard.setNumbers(tempNumbers);
+        temp.setBoardState(tempBoard);
+        gameStateDB.gameStateDao().updateEntry(temp);
+        Log.d("none", gameStateDB.gameStateDao().getAllEntries().get(0).getName());
+        Log.d("none", gameStateDB.gameStateDao().getAllEntries().get(0).getBoardState().getGroups()
+                .getCardMap().get("hand").get(0).getValues().get("name"));
 
         /*
         So basically some extra thread is required to host the gameloop.
@@ -65,10 +138,13 @@ public class NormalGame extends FullscreenCompatActivity
     {
         FragmentManager fragMan = getFragmentManager();
         FragmentTransaction fragTransaction = fragMan.beginTransaction();
-
-        //Fragment myFrag = new ImageFragment();
-        //fragTransaction.add(rowLayout.getId(), myFrag , "fragment" + fragCount);
+        Fragment myFrag = new DemoCard();//TODO: add model card somehow, likely through bundle arguments
+        fragTransaction.add(playerCardDisplayView.getId(), myFrag , "fragment");
         fragTransaction.commit();
+        ViewGroup.LayoutParams params = playerCardDisplayView.getLayoutParams();
+        params.height = 0;
+        params.width = ViewGroup.LayoutParams.FILL_PARENT;
+        playerCardDisplayView.setLayoutParams(params);
     }
 
 }
