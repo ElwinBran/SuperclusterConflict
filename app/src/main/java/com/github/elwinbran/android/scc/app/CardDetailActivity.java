@@ -4,19 +4,22 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 /**
  * This activity allows one to see the details of a card.
  *
  * @author Elwin Slokker
  */
-public class CardDetailActivity extends AppCompatActivity
+public class CardDetailActivity extends FullscreenCompatActivity
 {
     @Override
     public void onCreate(Bundle savedInstances)
     {
-        super.onCreate(savedInstances);
         setContentView(R.layout.popup_card_detail);
+        super.assign(findViewById(R.id.detail_popup_root_layout));
+        super.onCreate(savedInstances);
+
 
         RecyclerView detailList = findViewById(R.id.card_detail_view);
         DisplayMetrics dm  = new DisplayMetrics();
@@ -24,7 +27,8 @@ public class CardDetailActivity extends AppCompatActivity
         //setBackgroundDrawable(new ColorDrawable(Color.BLACK));
         Integer width = dm.widthPixels;
         Integer height = dm.heightPixels;
-
-        getWindow().setLayout((int)(width * 0.6d), (int)(height * 0.2));
+        Float fraction = getResources().getFraction(R.fraction.card_detail_width, 1, 1);
+        Log.d("none", fraction.toString());
+        getWindow().setLayout((int)(width * fraction), height);
     }
 }
