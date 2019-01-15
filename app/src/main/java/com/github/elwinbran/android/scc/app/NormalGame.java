@@ -1,8 +1,12 @@
 package com.github.elwinbran.android.scc.app;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.github.elwinbran.android.scc.api.AppDatabase;
 import com.github.elwinbran.android.scc.app.R;
@@ -26,9 +30,16 @@ public class NormalGame extends FullscreenCompatActivity
         super.assign(findViewById(R.id.root_constraint_layout));
         super.onCreate(savedInstance);
         gameStateDB = AppDatabase.getInstance(this);
-        final RecyclerView playerCardDisplay = findViewById(R.id.demo_card_holder_player);
-        final RecyclerView oppponentCardDisplay = findViewById(R.id.demo_card_holder_opponent);
+        final LinearLayout playerCardDisplayView = findViewById(R.id.player_cards_view);
         final Button addCardButton = findViewById(R.id.add_button);
+
+        FragmentManager fragMan = getFragmentManager();
+        FragmentTransaction fragTransaction = fragMan.beginTransaction();
+
+        Fragment myFrag = new DemoCard();
+        fragTransaction.add(playerCardDisplayView.getId(), myFrag , "fragment");
+        fragTransaction.commit();
+
         /*
         So basically some extra thread is required to host the gameloop.
         This is a two way system...
@@ -48,4 +59,15 @@ public class NormalGame extends FullscreenCompatActivity
     {
         super.onStart();
     }
+
+    private void addFragment()
+    {
+        FragmentManager fragMan = getFragmentManager();
+        FragmentTransaction fragTransaction = fragMan.beginTransaction();
+
+        //Fragment myFrag = new ImageFragment();
+        //fragTransaction.add(rowLayout.getId(), myFrag , "fragment" + fragCount);
+        fragTransaction.commit();
+    }
+
 }
