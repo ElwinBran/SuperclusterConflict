@@ -2,9 +2,12 @@ package com.github.elwinbran.android.scc.app;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
+
+import java.util.Collections;
 
 /**
  * This activity allows one to see the details of a card.
@@ -22,6 +25,8 @@ public class CardDetailActivity extends FullscreenCompatActivity
 
 
         RecyclerView detailList = findViewById(R.id.card_detail_view);
+        detailList.setAdapter(new DetailAdapter(Collections.EMPTY_LIST));
+        detailList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         DisplayMetrics dm  = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         //setBackgroundDrawable(new ColorDrawable(Color.BLACK));
