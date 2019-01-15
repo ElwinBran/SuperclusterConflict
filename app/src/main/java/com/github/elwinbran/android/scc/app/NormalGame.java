@@ -31,6 +31,7 @@ public class NormalGame extends FullscreenCompatActivity
         super.onCreate(savedInstance);
         gameStateDB = AppDatabase.getInstance(this);
         final LinearLayout playerCardDisplayView = findViewById(R.id.player_cards_view);
+        final LinearLayout opponentCardDisplayView = findViewById(R.id.opponent_cards_view);
         final Button addCardButton = findViewById(R.id.add_button);
 
         FragmentManager fragMan = getFragmentManager();
