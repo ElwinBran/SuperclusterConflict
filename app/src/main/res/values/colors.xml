@@ -3,7 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="pure_white">#FFFFFF</color>
+    <color name="pure_white">#ffffff</color>
+    <color name="spacy_back">#0c0921</color>
     <color name="space_purple">#ab6bab</color>
     <color name="black_overlay">#66000000</color>
 </resources>
