@@ -9,7 +9,12 @@ import com.github.elwinbran.android.scc.GameState;
 import com.github.elwinbran.android.scc.Player;
 import com.github.elwinbran.android.scc.PlayerSequence;
 import com.github.elwinbran.android.scc.backend.ROOMBoard;
+import com.github.elwinbran.android.scc.backend.ROOMGameNumbers;
 import com.github.elwinbran.android.scc.backend.ROOMGameState;
+import com.github.elwinbran.android.scc.utility.ROOMBoardConverter;
+import com.github.elwinbran.android.scc.utility.dimplementations.DefaultMapGameNumbers;
+
+import java.util.HashMap;
 
 /**
  * Converts a ROOM POJO to a true domain object.
@@ -18,6 +23,8 @@ import com.github.elwinbran.android.scc.backend.ROOMGameState;
  */
 public class ROOMToDomainConverter implements Function<ROOMGameState, GameState>
 {
+    private final Function<ROOMBoard, Board> boardConverter = new ROOMBoardConverter();
+
     @Override
     public GameState apply(ROOMGameState input)
     {
@@ -63,24 +70,7 @@ public class ROOMToDomainConverter implements Function<ROOMGameState, GameState>
                 return opponent;
             }
         };
-
-        final CardGroups domainGroups;//TODO: retrieve
-        final GameNumbers domainNumbers;
-
-        final Board newBoard = new Board() {
-            @Override
-            public CardGroups cards()
-            {
-                return domainGroups;
-            }
-
-            @Override
-            public GameNumbers counters()
-            {
-                return domainNumbers;
-            }
-        };
-
+        final Board newBoard = boardConverter.apply(pojoBoard);
         GameState newDomain = new GameState() {
             @Override
             public PlayerSequence playerSequence()
@@ -94,6 +84,6 @@ public class ROOMToDomainConverter implements Function<ROOMGameState, GameState>
                 return newBoard;
             }
         };
-        return null;
+        return newDomain;
     }
 }
