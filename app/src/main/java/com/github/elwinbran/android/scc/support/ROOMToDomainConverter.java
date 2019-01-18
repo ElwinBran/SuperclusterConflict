@@ -3,18 +3,12 @@ package com.github.elwinbran.android.scc.support;
 import android.arch.core.util.Function;
 
 import com.github.elwinbran.android.scc.Board;
-import com.github.elwinbran.android.scc.CardGroups;
-import com.github.elwinbran.android.scc.GameNumbers;
 import com.github.elwinbran.android.scc.GameState;
 import com.github.elwinbran.android.scc.Player;
 import com.github.elwinbran.android.scc.PlayerSequence;
 import com.github.elwinbran.android.scc.backend.ROOMBoard;
-import com.github.elwinbran.android.scc.backend.ROOMGameNumbers;
 import com.github.elwinbran.android.scc.backend.ROOMGameState;
 import com.github.elwinbran.android.scc.utility.ROOMBoardConverter;
-import com.github.elwinbran.android.scc.utility.dimplementations.DefaultMapGameNumbers;
-
-import java.util.HashMap;
 
 /**
  * Converts a ROOM POJO to a true domain object.
