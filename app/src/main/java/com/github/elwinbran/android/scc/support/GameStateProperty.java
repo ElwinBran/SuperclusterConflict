@@ -35,7 +35,11 @@ public class GameStateProperty extends Observable
     public void replace(GameState newState)
     {
         this.property = newState;
-        this.setChanged();
-        this.notifyObservers(newState);
+        super.setChanged();
+        synchronized(this)
+        {
+            this.notify();
+        }
+        //super.notifyObservers(newState);
     }
 }

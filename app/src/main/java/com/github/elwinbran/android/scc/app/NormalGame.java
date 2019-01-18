@@ -118,18 +118,22 @@ public class NormalGame extends FullscreenCompatActivity
         gameloop requires certain input values
         then UI thread needs to be notified and apply gamestate
         */
+        Log.d("none", "observer created");
         state.addObserver(new Observer() {
             @Override
             public void update(Observable observable, Object o)
             {
-                if(observable instanceof GameState)
+                try
                 {
-                    GameState newState = (GameState) observable;
-                    updateUI(newState);
+                    String pName = state.currentState().playerSequence().firstPlayer().name();
+                    Log.d("none", "name: " + ((pName == null)? "":pName));
+                    playerNameDisplay.setText(pName);
+                    opponentNameDisplay.setText(state.currentState().playerSequence().secondPlayer().name());
+                    updateUI(state.currentState());
                 }
-                else
+                catch (Throwable ex)
                 {
-                    Log.e("none", "update could not be called:", new IllegalArgumentException());
+                    Log.e("none", "update could not be called:", ex);
                 }
             }
         });
@@ -147,8 +151,19 @@ public class NormalGame extends FullscreenCompatActivity
     public void onStart()
     {
         super.onStart();
+        Log.d("none", "onStart: done");
         pojoGameState = gameStateDB.gameStateDao().getAllEntries().get(0);
         this.state.replace(domainTransformer.apply(pojoGameState));
+    }
+
+    private void updateUI(GameState newState)
+    {
+        //players
+
+        //numbers
+
+        //cards
+
     }
 
     private void addFragment()
