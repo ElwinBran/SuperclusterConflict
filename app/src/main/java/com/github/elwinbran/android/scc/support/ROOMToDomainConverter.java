@@ -8,7 +8,6 @@ import com.github.elwinbran.android.scc.Player;
 import com.github.elwinbran.android.scc.PlayerSequence;
 import com.github.elwinbran.android.scc.backend.ROOMBoard;
 import com.github.elwinbran.android.scc.backend.ROOMGameState;
-import com.github.elwinbran.android.scc.utility.ROOMBoardConverter;
 
 /**
  * Converts a ROOM POJO to a true domain object.

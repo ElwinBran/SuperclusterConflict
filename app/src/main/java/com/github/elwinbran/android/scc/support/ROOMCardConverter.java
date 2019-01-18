@@ -1,4 +1,4 @@
-package com.github.elwinbran.android.scc.utility;
+package com.github.elwinbran.android.scc.support;
 
 import android.arch.core.util.Function;
 
