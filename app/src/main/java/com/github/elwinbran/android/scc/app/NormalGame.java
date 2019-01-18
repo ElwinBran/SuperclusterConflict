@@ -3,6 +3,7 @@ package com.github.elwinbran.android.scc.app;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.arch.core.util.Function;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,6 +25,7 @@ import com.github.elwinbran.android.scc.backend.ROOMGameState;
 import com.github.elwinbran.android.scc.backend.ROOMPlayer;
 import com.github.elwinbran.android.scc.fragments.DemoCard;
 import com.github.elwinbran.android.scc.support.GameStateProperty;
+import com.github.elwinbran.android.scc.support.ROOMToDomainConverter;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -42,6 +44,8 @@ public class NormalGame extends FullscreenCompatActivity
 
     private final GameStateProperty state = new GameStateProperty(null);
 
+    private Function<ROOMGameState, GameState> domainTransformer;
+
     private LinearLayout playerCardDisplayView;
 
     @Override
@@ -52,6 +56,7 @@ public class NormalGame extends FullscreenCompatActivity
         super.onCreate(savedInstance);
         gameStateDB = AppDatabase.getInstance(this);
         playerCardDisplayView = findViewById(R.id.player_cards_view);
+        domainTransformer = new ROOMToDomainConverter();
         final LinearLayout opponentCardDisplayView = findViewById(R.id.opponent_cards_view);
         final Button addCardButton = findViewById(R.id.add_button);
         addCardButton.setOnClickListener(new View.OnClickListener()
@@ -62,21 +67,6 @@ public class NormalGame extends FullscreenCompatActivity
                 addFragment();
             }
         });
-        GameState currentState = new GameState()
-        {
-            @Override
-            public PlayerSequence playerSequence()
-            {
-                return null;
-            }
-
-            @Override
-            public Board fullBoard()
-            {
-                return null;
-            }
-        };
-
 
 
         ROOMGameState temp = new ROOMGameState();
@@ -132,6 +122,8 @@ public class NormalGame extends FullscreenCompatActivity
     public void onStart()
     {
         super.onStart();
+        ROOMGameState pojoState = gameStateDB.gameStateDao().getAllEntries().get(0);
+        this.state.replace(domainTransformer.apply(pojoState));
     }
 
     private void addFragment()
