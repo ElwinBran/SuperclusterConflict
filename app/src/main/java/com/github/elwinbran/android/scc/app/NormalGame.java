@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.github.elwinbran.android.scc.Board;
 import com.github.elwinbran.android.scc.GameState;
@@ -61,6 +62,9 @@ public class NormalGame extends FullscreenCompatActivity
         gameStateDB = AppDatabase.getInstance(this);
         playerCardDisplayView = findViewById(R.id.player_cards_view);
         domainTransformer = new ROOMToDomainConverter();
+
+        final TextView playerNameDisplay = findViewById(R.id.player_name_text_view);
+        final TextView opponentNameDisplay = findViewById(R.id.opponent_name_text_view);
         final LinearLayout opponentCardDisplayView = findViewById(R.id.opponent_cards_view);
         final Button addCardButton = findViewById(R.id.add_button);
         addCardButton.setOnClickListener(new View.OnClickListener()
