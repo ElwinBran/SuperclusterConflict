@@ -10,7 +10,7 @@ import java.util.Map;
  *
  * @author Elwin Slokker
  */
-public class DefaultMapGameNumbers implements GameNumbers
+public class MappedGameNumbers implements GameNumbers
 {
     private final Map<String, Integer> wrappedMap;
 
@@ -21,7 +21,7 @@ public class DefaultMapGameNumbers implements GameNumbers
      *            Consider passing a copy to prevent unexpected behaviour.
      *            (this implementation does not copy maps.)
      */
-    public DefaultMapGameNumbers(Map<String, Integer> map)
+    public MappedGameNumbers(Map<String, Integer> map)
     {
         wrappedMap = map;
     }
