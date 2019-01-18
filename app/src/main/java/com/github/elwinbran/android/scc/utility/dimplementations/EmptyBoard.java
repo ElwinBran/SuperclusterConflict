@@ -8,6 +8,7 @@ import com.github.elwinbran.android.scc.CardGroups;
 import com.github.elwinbran.android.scc.GameNumbers;
 import com.github.elwinbran.android.scc.PossibleInteger;
 
+import java.util.Collections;
 import java.util.Iterator;
 
 /**
@@ -28,27 +29,7 @@ public class EmptyBoard implements Board
             @Override
             public Iterable<Card> group(String s)
             {
-                return new Iterable<Card>()
-                {
-                    @NonNull
-                    @Override
-                    public Iterator<Card> iterator()
-                    {
-                        return new Iterator<Card>() {
-                            @Override
-                            public boolean hasNext()
-                            {
-                                return false;
-                            }
-
-                            @Override
-                            public Card next()
-                            {
-                                return null;
-                            }
-                        };
-                    }
-                };
+                return Collections.EMPTY_LIST;
             }
         };
         final PossibleInteger empty = new DefaultPossibleInteger();
