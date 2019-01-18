@@ -31,6 +31,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * The normal game activity of Supercluster Conflict.
@@ -43,6 +45,8 @@ public class NormalGame extends FullscreenCompatActivity
     private AppDatabase gameStateDB;
 
     private final GameStateProperty state = new GameStateProperty(null);
+
+    private ROOMGameState pojoGameState;
 
     private Function<ROOMGameState, GameState> domainTransformer;
 
@@ -110,20 +114,37 @@ public class NormalGame extends FullscreenCompatActivity
         gameloop requires certain input values
         then UI thread needs to be notified and apply gamestate
         */
+        state.addObserver(new Observer() {
+            @Override
+            public void update(Observable observable, Object o)
+            {
+                if(observable instanceof GameState)
+                {
+                    GameState newState = (GameState) observable;
+                    updateUI(newState);
+                }
+                else
+                {
+                    Log.e("none", "update could not be called:", new IllegalArgumentException());
+                }
+            }
+        });
     }
 
     @Override
     public void onStop()
     {
         super.onStop();
+        gameStateDB.gameStateDao().updateEntry(pojoGameState);
+        //TODO: notice of completed save?
     }
 
     @Override
     public void onStart()
     {
         super.onStart();
-        ROOMGameState pojoState = gameStateDB.gameStateDao().getAllEntries().get(0);
-        this.state.replace(domainTransformer.apply(pojoState));
+        pojoGameState = gameStateDB.gameStateDao().getAllEntries().get(0);
+        this.state.replace(domainTransformer.apply(pojoGameState));
     }
 
     private void addFragment()
