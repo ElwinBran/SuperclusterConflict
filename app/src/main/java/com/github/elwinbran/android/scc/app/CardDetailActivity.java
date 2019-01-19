@@ -1,6 +1,7 @@
 package com.github.elwinbran.android.scc.app;
 
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -8,7 +9,6 @@ import android.util.Pair;
 
 import com.github.elwinbran.android.scc.backend.ROOMCard;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,6 +34,8 @@ public class CardDetailActivity extends FullscreenCompatActivity
         RecyclerView detailList = findViewById(R.id.card_detail_view);
         detailList.setAdapter(new DetailAdapter(details));
         detailList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        DividerItemDecoration itemDecor = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        detailList.addItemDecoration(itemDecor);
         DisplayMetrics dm  = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         //setBackgroundDrawable(new ColorDrawable(Color.BLACK));
