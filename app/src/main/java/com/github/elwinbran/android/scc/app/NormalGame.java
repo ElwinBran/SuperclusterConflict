@@ -161,6 +161,8 @@ public class NormalGame extends FullscreenCompatActivity
         opponentNameDisplay.setText(state.currentState().playerSequence().secondPlayer().name());
     }
 
+    private int fragmentCount = 0;
+
     private void updateUI(GameState newState)
     {
         //players
@@ -176,7 +178,12 @@ public class NormalGame extends FullscreenCompatActivity
         FragmentManager fragMan = getFragmentManager();
         FragmentTransaction fragTransaction = fragMan.beginTransaction();
         Fragment myFrag = new DemoCard();//TODO: add model card somehow, likely through bundle arguments
-        fragTransaction.add(playerCardDisplayView.getId(), myFrag , "fragment");
+        Bundle bundledCard = new Bundle();
+        ROOMCard temp =
+                gameStateDB.gameStateDao().getAllEntries().get(0).getBoardState().getGroups().getCardMap().get("hand").get(0);
+        bundledCard.putParcelable(getString(R.string.bundle_key), temp);
+        myFrag.setArguments(bundledCard);
+        fragTransaction.add(playerCardDisplayView.getId(), myFrag , "fragment" + Integer.toString(fragmentCount++));
         fragTransaction.commit();
         ViewGroup.LayoutParams params = playerCardDisplayView.getLayoutParams();
         params.height = 0;

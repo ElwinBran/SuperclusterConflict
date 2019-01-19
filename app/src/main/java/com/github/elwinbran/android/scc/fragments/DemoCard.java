@@ -3,6 +3,7 @@ package com.github.elwinbran.android.scc.fragments;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 
 import com.github.elwinbran.android.scc.app.CardDetailActivity;
 import com.github.elwinbran.android.scc.app.R;
+import com.github.elwinbran.android.scc.backend.ROOMCard;
 
 /**
  * The UI representation of a card in the demo.
@@ -34,11 +36,14 @@ public class DemoCard extends Fragment
     private void setContent(View view, Bundle data)
     {
         demoCardBack = view.findViewById(R.id.demo_card_back);
+        final Intent viewDetail = new Intent(getActivity(), CardDetailActivity.class);
+        Parcelable card = data.getParcelable(getActivity().getString(R.string.bundle_key));
+        viewDetail.putExtra(getActivity().getString(R.string.bundle_key), card);
         demoCardBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-                startActivity(new Intent(getActivity() ,CardDetailActivity.class));
+                startActivity(viewDetail);
             }
         });
     }
