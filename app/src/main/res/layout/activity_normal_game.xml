@@ -7,30 +7,6 @@
     android:layout_height="match_parent"
     android:background="#000000">
 
-    <TextView
-        android:id="@+id/opponent_name_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="[player]"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:textColor="@color/pure_white" />
-
-    <TextView
-        android:id="@+id/player_name_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="8dp"
-        android:text="[player]"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:textColor="@color/pure_white" />
-
     <LinearLayout
         android:id="@+id/opponent_cards_view"
         android:layout_width="0dp"
@@ -89,6 +65,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/add_button"
                     app:layout_constraintTop_toTopOf="parent" />
+
             </android.support.constraint.ConstraintLayout>
 
         </LinearLayout>
@@ -105,4 +82,55 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/player_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="3dp"
+        android:textColor="@color/pure_white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/text_view_player_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:elevation="3dp"
+        android:text="@string/player_label"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@+id/player_name_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/player_name_text_view" />
+
+    <TextView
+        android:id="@+id/text_view_opponent_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:elevation="3dp"
+        android:text="@string/opponent_label"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/opponent_name_text_view"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/opponent_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:elevation="3dp"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_opponent_label" />
+
 </android.support.constraint.ConstraintLayout>

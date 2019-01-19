@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.github.elwinbran.android.scc.Board;
 import com.github.elwinbran.android.scc.GameState;
-import com.github.elwinbran.android.scc.PlayerSequence;
 import com.github.elwinbran.android.scc.api.AppDatabase;
 import com.github.elwinbran.android.scc.app.R;
 import com.github.elwinbran.android.scc.backend.ROOMBoard;
@@ -47,6 +46,10 @@ public class NormalGame extends FullscreenCompatActivity
 
     private final GameStateProperty state = new GameStateProperty(null);
 
+    private TextView playerNameDisplay;
+
+    private TextView opponentNameDisplay;
+
     private ROOMGameState pojoGameState;
 
     private Function<ROOMGameState, GameState> domainTransformer;
@@ -63,8 +66,8 @@ public class NormalGame extends FullscreenCompatActivity
         playerCardDisplayView = findViewById(R.id.player_cards_view);
         domainTransformer = new ROOMToDomainConverter();
 
-        final TextView playerNameDisplay = findViewById(R.id.player_name_text_view);
-        final TextView opponentNameDisplay = findViewById(R.id.opponent_name_text_view);
+        playerNameDisplay = findViewById(R.id.player_name_text_view);
+        opponentNameDisplay = findViewById(R.id.opponent_name_text_view);
         final LinearLayout opponentCardDisplayView = findViewById(R.id.opponent_cards_view);
         final Button addCardButton = findViewById(R.id.add_button);
         addCardButton.setOnClickListener(new View.OnClickListener()
@@ -154,6 +157,8 @@ public class NormalGame extends FullscreenCompatActivity
         Log.d("none", "onStart: done");
         pojoGameState = gameStateDB.gameStateDao().getAllEntries().get(0);
         this.state.replace(domainTransformer.apply(pojoGameState));
+        playerNameDisplay.setText(state.currentState().playerSequence().firstPlayer().name());
+        opponentNameDisplay.setText(state.currentState().playerSequence().secondPlayer().name());
     }
 
     private void updateUI(GameState newState)
