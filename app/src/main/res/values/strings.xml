@@ -7,6 +7,9 @@
     <string name="demo_player_name">Overseer</string>
     <string name="demo_computer_opponent_name">Enemy</string>
     <string name="bundle_key">card</string>
+    <string name="demo_full_set_name">demo-set</string>
+    <string name="demo_hand_save">hand</string>
+    <string name="health_key">Health</string>
     <string name="player_label">Player:</string>
     <string name="opponent_label">Opponent:</string>
 </resources>
