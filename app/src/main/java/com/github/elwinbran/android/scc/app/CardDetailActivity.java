@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
-import android.util.Log;
 
 import java.util.Collections;
 
@@ -32,7 +31,6 @@ public class CardDetailActivity extends FullscreenCompatActivity
         Integer width = dm.widthPixels;
         Integer height = dm.heightPixels;
         Float fraction = getResources().getFraction(R.fraction.card_detail_width, 1, 1);
-        Log.d("none", fraction.toString());
         getWindow().setLayout((int)(width * fraction), height);
     }
 }
