@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 /**
  * The normal game activity of Supercluster Conflict.
@@ -70,22 +71,18 @@ public class NormalGame extends FullscreenCompatActivity
         opponentNameDisplay = findViewById(R.id.opponent_name_text_view);
         final LinearLayout opponentCardDisplayView = findViewById(R.id.opponent_cards_view);
         final Button addCardButton = findViewById(R.id.add_button);
-        addCardButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                addFragment();
-            }
-        });
 
 
+
+        //TODO: get rid of temp data stuff
         ROOMGameState temp = new ROOMGameState();
         temp.setName(getString(R.string.demo_game_state_name));
         ROOMPlayer player = new ROOMPlayer();
         player.setName(getString(R.string.demo_player_name));
         ROOMPlayer opponent = new ROOMPlayer();
-        player.setName(getString(R.string.demo_computer_opponent_name));
+        opponent.setName(getString(R.string.demo_computer_opponent_name));
+        temp.setFirstPlayer(player);
+        temp.setSecondPlayer(opponent);
 
         ROOMBoard tempBoard = new ROOMBoard();
         ROOMCardGroups tempGroups = new ROOMCardGroups();
@@ -121,7 +118,23 @@ public class NormalGame extends FullscreenCompatActivity
         gameloop requires certain input values
         then UI thread needs to be notified and apply gamestate
         */
-        Log.d("none", "observer created");
+        //playerNameDisplay.requestFocus();
+        ROOMCardGroups demoGroups = gameStateDB.gameStateDao().getAllEntries().get(0).getBoardState().getGroups();
+        final List<ROOMCard> demoSet = demoGroups.getCardMap().get(getString(R.string.demo_full_set_name));
+        addCardButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Random randomizer = new Random();
+                addFragment(demoSet.get(randomizer.nextInt(demoSet.size())));
+                if(fragmentCount > 3)
+                {
+                    addCardButton.setClickable(false);
+                }
+                //TODO: migrate changes to model
+            }
+        });
         state.addObserver(new Observer() {
             @Override
             public void update(Observable observable, Object o)
@@ -173,15 +186,13 @@ public class NormalGame extends FullscreenCompatActivity
 
     }
 
-    private void addFragment()
+    private void addFragment(ROOMCard card)
     {
         FragmentManager fragMan = getFragmentManager();
         FragmentTransaction fragTransaction = fragMan.beginTransaction();
-        Fragment myFrag = new DemoCard();//TODO: add model card somehow, likely through bundle arguments
+        Fragment myFrag = new DemoCard();
         Bundle bundledCard = new Bundle();
-        ROOMCard temp =
-                gameStateDB.gameStateDao().getAllEntries().get(0).getBoardState().getGroups().getCardMap().get("hand").get(0);
-        bundledCard.putParcelable(getString(R.string.bundle_key), temp);
+        bundledCard.putParcelable(getString(R.string.bundle_key), card);
         myFrag.setArguments(bundledCard);
         fragTransaction.add(playerCardDisplayView.getId(), myFrag , "fragment" + Integer.toString(fragmentCount++));
         fragTransaction.commit();
