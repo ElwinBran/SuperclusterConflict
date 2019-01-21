@@ -127,10 +127,15 @@ public class NormalGame extends FullscreenCompatActivity
             public void onClick(View view)
             {
                 Random randomizer = new Random();
-                addFragment(demoSet.get(randomizer.nextInt(demoSet.size())));
+                ROOMCard randomDemoCard = demoSet.get(randomizer.nextInt(demoSet.size()));
+                addFragment(randomDemoCard);
+                pojoGameState.getBoardState().getGroups().getCardMap().get(
+                        getString(R.string.demo_hand_save)).add(randomDemoCard);
+                Log.d("none", Integer.toString(fragmentCount));
                 if(fragmentCount > 3)
                 {
                     addCardButton.setClickable(false);
+                    addCardButton.setEnabled(false);
                 }
                 //TODO: migrate changes to model
             }
