@@ -132,15 +132,19 @@ public class NormalGame extends FullscreenCompatActivity
                 Random randomizer = new Random();
                 ROOMCard randomDemoCard = demoSet.get(randomizer.nextInt(demoSet.size()));
                 addFragment(randomDemoCard);
-                pojoGameState.getBoardState().getGroups().getCardMap().get(
-                        getString(R.string.demo_hand_save)).add(randomDemoCard);
-                Log.d("none", Integer.toString(fragmentCount));
+                List<ROOMCard> handCards = pojoGameState.getBoardState().getGroups().getCardMap().get(
+                        getString(R.string.demo_hand_save));
+                if(handCards == null)
+                {
+                    handCards = new ArrayList<>();
+                    pojoGameState.getBoardState().getGroups().getCardMap().put(getString(R.string.demo_hand_save), handCards);
+                }
+                handCards.add(randomDemoCard);
                 if(fragmentCount > 3)
                 {
                     addCardButton.setClickable(false);
                     addCardButton.setEnabled(false);
                 }
-                //TODO: migrate changes to model
             }
         });
         state.addObserver(new Observer() {
@@ -168,18 +172,35 @@ public class NormalGame extends FullscreenCompatActivity
     {
         super.onStop();
         gameStateDB.gameStateDao().updateEntry(pojoGameState);
-        //TODO: notice of completed save?
+        //TODO: why is the new list not saved?
     }
 
     @Override
     public void onStart()
     {
         super.onStart();
-        Log.d("none", "onStart: done");
+
         pojoGameState = gameStateDB.gameStateDao().getAllEntries().get(0);
         this.state.replace(domainTransformer.apply(pojoGameState));
         playerNameDisplay.setText(state.currentState().playerSequence().firstPlayer().name());
         opponentNameDisplay.setText(state.currentState().playerSequence().secondPlayer().name());
+        String healthKey = getString(R.string.health_key);
+        String healthString = pojoGameState.getBoardState().getNumbers().getNumbers().get(healthKey).toString();
+        healthDisplay.setText(healthString);
+
+        String handKey = getString(R.string.demo_hand_save);
+        ROOMCardGroups demoGroups = pojoGameState.getBoardState().getGroups();
+        Log.d("none", "onStart: started");
+        Iterable<ROOMCard> playerHandCards = demoGroups.getCardMap().get(handKey);
+        if (playerHandCards != null)
+        {
+            for(ROOMCard card : playerHandCards)
+            {
+                addFragment(card);
+                Log.d("none", "onStart: added a thing");
+            }
+        }
+
     }
 
     private int fragmentCount = 0;
@@ -204,10 +225,6 @@ public class NormalGame extends FullscreenCompatActivity
         myFrag.setArguments(bundledCard);
         fragTransaction.add(playerCardDisplayView.getId(), myFrag , "fragment" + Integer.toString(fragmentCount++));
         fragTransaction.commit();
-        ViewGroup.LayoutParams params = playerCardDisplayView.getLayoutParams();
-        params.height = 0;
-        params.width = ViewGroup.LayoutParams.FILL_PARENT;
-        playerCardDisplayView.setLayoutParams(params);
     }
 
 }
