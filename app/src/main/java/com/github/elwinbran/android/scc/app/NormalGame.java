@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.github.elwinbran.android.scc.Board;
 import com.github.elwinbran.android.scc.GameState;
 import com.github.elwinbran.android.scc.api.AppDatabase;
-import com.github.elwinbran.android.scc.app.R;
 import com.github.elwinbran.android.scc.backend.ROOMBoard;
 import com.github.elwinbran.android.scc.backend.ROOMCard;
 import com.github.elwinbran.android.scc.backend.ROOMCardGroups;
@@ -27,6 +26,7 @@ import com.github.elwinbran.android.scc.fragments.DemoCard;
 import com.github.elwinbran.android.scc.support.GameStateProperty;
 import com.github.elwinbran.android.scc.support.ROOMToDomainConverter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -51,6 +51,8 @@ public class NormalGame extends FullscreenCompatActivity
 
     private TextView opponentNameDisplay;
 
+    private TextView healthDisplay;
+
     private ROOMGameState pojoGameState;
 
     private Function<ROOMGameState, GameState> domainTransformer;
@@ -69,6 +71,7 @@ public class NormalGame extends FullscreenCompatActivity
 
         playerNameDisplay = findViewById(R.id.player_name_text_view);
         opponentNameDisplay = findViewById(R.id.opponent_name_text_view);
+        healthDisplay = findViewById(R.id.health_text_view);
         final LinearLayout opponentCardDisplayView = findViewById(R.id.opponent_cards_view);
         final Button addCardButton = findViewById(R.id.add_button);
 
