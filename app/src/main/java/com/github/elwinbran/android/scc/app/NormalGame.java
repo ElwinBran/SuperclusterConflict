@@ -172,7 +172,6 @@ public class NormalGame extends FullscreenCompatActivity
     {
         super.onStop();
         gameStateDB.gameStateDao().updateEntry(pojoGameState);
-        //TODO: why is the new list not saved?
     }
 
     @Override
@@ -190,14 +189,12 @@ public class NormalGame extends FullscreenCompatActivity
 
         String handKey = getString(R.string.demo_hand_save);
         ROOMCardGroups demoGroups = pojoGameState.getBoardState().getGroups();
-        Log.d("none", "onStart: started");
         Iterable<ROOMCard> playerHandCards = demoGroups.getCardMap().get(handKey);
         if (playerHandCards != null)
         {
             for(ROOMCard card : playerHandCards)
             {
                 addFragment(card);
-                Log.d("none", "onStart: added a thing");
             }
         }
 
