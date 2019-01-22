@@ -26,6 +26,8 @@
             android:theme="@style/FullscreenTheme"/>
         <activity android:name=".CardDetailActivity"
             android:theme="@style/PopupTheme"/>
+        <activity android:name=".DemoWonActivity"
+            android:theme="@style/PopupTheme"/>
     </application>
 
 </manifest>
