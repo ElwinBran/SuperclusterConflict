@@ -29,7 +29,7 @@ public class CardDetailActivity extends FullscreenCompatActivity
         List<Pair<String, String>> details = new LinkedList<>();
         for(String key : pojoCard.getValues().keySet())
         {
-            details.add(new Pair<String, String>(key, pojoCard.getValues().get(key)));
+            details.add(new Pair<>(key, pojoCard.getValues().get(key)));
         }
         RecyclerView detailList = findViewById(R.id.card_detail_view);
         detailList.setAdapter(new DetailAdapter(details));
@@ -38,7 +38,6 @@ public class CardDetailActivity extends FullscreenCompatActivity
         detailList.addItemDecoration(itemDecor);
         DisplayMetrics dm  = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        //setBackgroundDrawable(new ColorDrawable(Color.BLACK));
         Integer width = dm.widthPixels;
         Integer height = dm.heightPixels;
         Float fraction = getResources().getFraction(R.fraction.card_detail_width, 1, 1);
