@@ -42,6 +42,8 @@ import java.util.Random;
  */
 public class NormalGame extends FullscreenCompatActivity
 {
+    private int fragmentCount = 0;
+
     private AppDatabase gameStateDB;
 
     private TextView playerNameDisplay;
@@ -123,6 +125,7 @@ public class NormalGame extends FullscreenCompatActivity
                         ViewGroup owner = (ViewGroup) viewT.getParent();
                         owner.removeView(viewT);
                         fragmentCount--;
+                        playCard(viewT);
                         break;
                     case DragEvent.ACTION_DRAG_ENDED:
                         Log.d("none", "onDrag: oppo dropped");
@@ -205,7 +208,20 @@ public class NormalGame extends FullscreenCompatActivity
         });
     }
 
-    private int fragmentCount = 0;
+    private void playCard(View dragged)
+    {
+        Log.d("none", Integer.toString(dragged.getId()));
+        Fragment cardFragment = getFragmentManager().findFragmentById(dragged.getId());
+        playCard(cardFragment.getArguments());
+    }
+
+    private void playCard(Bundle cardData)
+    {
+        ROOMCard pojoCard = cardData.getParcelable(getString(R.string.bundle_key));
+
+        //TODO: finish up the game code and update pojo state
+    }
+
 
     /**
      * Used to update UI based on state changes.
