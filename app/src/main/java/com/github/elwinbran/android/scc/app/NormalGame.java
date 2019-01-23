@@ -150,30 +150,27 @@ public class NormalGame extends FullscreenCompatActivity
             public boolean onDrag(View view, DragEvent dragEvent)
             {
                 int action = dragEvent.getAction();
+                View tempView;
+                ViewGroup owner;
+                LinearLayout container;
                 switch (action) {
                     case DragEvent.ACTION_DRAG_STARTED:
-                        // do nothing
                         break;
                     case DragEvent.ACTION_DRAG_ENTERED:
-                        //view.setBackgroundDrawable(enterShape);
                         Log.d("none", "onDrag: enter");
                         break;
                     case DragEvent.ACTION_DRAG_EXITED:
-                        //view.setBackgroundDrawable(normalShape);
                         Log.d("none", "onDrag: left");
                         break;
                     case DragEvent.ACTION_DROP:
-                        // Dropped, reassign View to ViewGroup
-                        View tempView = (View) dragEvent.getLocalState();
-                        ViewGroup owner = (ViewGroup) view.getParent();
-                        owner.removeView(view);
-                        LinearLayout container = (LinearLayout) view;
-                        container.addView(view);
-                        view.setVisibility(View.VISIBLE);
+                        Log.d("none", "onDrag: end drag");
+                        tempView = (View) dragEvent.getLocalState();
+                        tempView.setVisibility(View.VISIBLE);
                         break;
                     case DragEvent.ACTION_DRAG_ENDED:
-                        //view.setBackgroundDrawable(normalShape);
                         Log.d("none", "onDrag: dropped");
+                        tempView = (View) dragEvent.getLocalState();
+                        tempView.setVisibility(View.VISIBLE);
                     default:
                         break;
                 }
@@ -184,6 +181,28 @@ public class NormalGame extends FullscreenCompatActivity
             @Override
             public boolean onDrag(View view, DragEvent dragEvent)
             {
+                int action = dragEvent.getAction();
+                switch (action) {
+                    case DragEvent.ACTION_DRAG_STARTED:
+                        break;
+                    case DragEvent.ACTION_DRAG_ENTERED:
+                        Log.d("none", "onDrag: oppo enter");
+                        break;
+                    case DragEvent.ACTION_DRAG_EXITED:
+                        Log.d("none", "onDrag: oppo left");
+                        break;
+                    case DragEvent.ACTION_DROP:
+                        Log.d("none", "onDrag: oppo end drag");
+                        View viewT = (View) dragEvent.getLocalState();
+                        ViewGroup owner = (ViewGroup) viewT.getParent();
+                        owner.removeView(viewT);
+                        fragmentCount--;
+                        break;
+                    case DragEvent.ACTION_DRAG_ENDED:
+                        Log.d("none", "onDrag: oppo dropped");
+                    default:
+                        break;
+                }
                 return true;
             }
         });
