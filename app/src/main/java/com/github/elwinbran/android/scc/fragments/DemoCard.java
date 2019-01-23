@@ -1,13 +1,13 @@
 package com.github.elwinbran.android.scc.fragments;
 
 import android.app.Fragment;
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.github.elwinbran.android.scc.app.CardDetailActivity;
 import com.github.elwinbran.android.scc.app.R;
@@ -19,7 +19,6 @@ import com.github.elwinbran.android.scc.app.R;
  */
 public class DemoCard extends Fragment
 {
-    private ImageView demoCardBack;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState)
@@ -31,17 +30,29 @@ public class DemoCard extends Fragment
         return fragment;
     }
 
+
     private void setContent(View view, Bundle data)
     {
-        demoCardBack = view.findViewById(R.id.demo_card_back);
         final Intent viewDetail = new Intent(getActivity(), CardDetailActivity.class);
         Parcelable card = data.getParcelable(getActivity().getString(R.string.bundle_key));
         viewDetail.putExtra(getActivity().getString(R.string.bundle_key), card);
-        demoCardBack.setOnClickListener(new View.OnClickListener() {
-            @Override
+        view.setOnClickListener(new View.OnClickListener() {
+           @Override
             public void onClick(View view)
             {
                 startActivity(viewDetail);
+            }
+        });
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view)
+            {
+                ClipData data = ClipData.newPlainText("", "");
+                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(
+                        view);
+                view.startDrag(data, shadowBuilder, view, 0);
+                view.setVisibility(View.INVISIBLE);
+                return true;
             }
         });
     }

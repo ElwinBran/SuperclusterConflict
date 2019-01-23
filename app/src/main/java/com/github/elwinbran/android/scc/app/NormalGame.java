@@ -6,7 +6,9 @@ import android.app.FragmentTransaction;
 import android.arch.core.util.Function;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -145,22 +147,46 @@ public class NormalGame extends FullscreenCompatActivity
                 }
             }
         });
-        state.addObserver(new Observer() {
+        playerCardDisplayView.setOnDragListener(new View.OnDragListener() {
             @Override
-            public void update(Observable observable, Object o)
+            public boolean onDrag(View view, DragEvent dragEvent)
             {
-                try
-                {
-                    String pName = state.currentState().playerSequence().firstPlayer().name();
-                    Log.d("none", "name: " + ((pName == null)? "":pName));
-                    playerNameDisplay.setText(pName);
-                    opponentNameDisplay.setText(state.currentState().playerSequence().secondPlayer().name());
-                    updateUI(state.currentState());
+                int action = dragEvent.getAction();
+                switch (action) {
+                    case DragEvent.ACTION_DRAG_STARTED:
+                        // do nothing
+                        break;
+                    case DragEvent.ACTION_DRAG_ENTERED:
+                        //view.setBackgroundDrawable(enterShape);
+                        Log.d("none", "onDrag: enter");
+                        break;
+                    case DragEvent.ACTION_DRAG_EXITED:
+                        //view.setBackgroundDrawable(normalShape);
+                        Log.d("none", "onDrag: left");
+                        break;
+                    case DragEvent.ACTION_DROP:
+                        // Dropped, reassign View to ViewGroup
+                        View tempView = (View) dragEvent.getLocalState();
+                        ViewGroup owner = (ViewGroup) view.getParent();
+                        owner.removeView(view);
+                        LinearLayout container = (LinearLayout) view;
+                        container.addView(view);
+                        view.setVisibility(View.VISIBLE);
+                        break;
+                    case DragEvent.ACTION_DRAG_ENDED:
+                        //view.setBackgroundDrawable(normalShape);
+                        Log.d("none", "onDrag: dropped");
+                    default:
+                        break;
                 }
-                catch (Throwable ex)
-                {
-                    Log.e("none", "update could not be called:", ex);
-                }
+                return true;
+            }
+        });
+        opponentCardDisplayView.setOnDragListener(new View.OnDragListener() {
+            @Override
+            public boolean onDrag(View view, DragEvent dragEvent)
+            {
+                return true;
             }
         });
     }
