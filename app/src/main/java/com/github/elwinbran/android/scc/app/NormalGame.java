@@ -23,6 +23,7 @@ import com.github.elwinbran.android.scc.backend.ROOMGameNumbers;
 import com.github.elwinbran.android.scc.backend.ROOMGameState;
 import com.github.elwinbran.android.scc.backend.ROOMPlayer;
 import com.github.elwinbran.android.scc.fragments.DemoCard;
+import com.github.elwinbran.android.scc.support.DemoGameGenerator;
 import com.github.elwinbran.android.scc.support.GameStateProperty;
 import com.github.elwinbran.android.scc.support.ROOMToDomainConverter;
 
@@ -73,53 +74,6 @@ public class NormalGame extends FullscreenCompatActivity
         final LinearLayout opponentCardDisplayView = findViewById(R.id.opponent_cards_view);
         final Button addCardButton = findViewById(R.id.add_button);
 
-
-
-        //TODO: get rid of temp data stuff
-        ROOMGameState temp = new ROOMGameState();
-        temp.setName(getString(R.string.demo_game_state_name));
-        ROOMPlayer player = new ROOMPlayer();
-        player.setName(getString(R.string.demo_player_name));
-        ROOMPlayer opponent = new ROOMPlayer();
-        opponent.setName(getString(R.string.demo_computer_opponent_name));
-        temp.setFirstPlayer(player);
-        temp.setSecondPlayer(opponent);
-
-        ROOMBoard tempBoard = new ROOMBoard();
-        ROOMCardGroups tempGroups = new ROOMCardGroups();
-        Map<String, List<ROOMCard>> tempGroupsMap = new HashMap<>();
-        List<ROOMCard> tempCardList = new LinkedList<>();
-        //Cards
-        ROOMCard tempCard = new ROOMCard();
-        Map<String, String> tempCardValues = new HashMap<>();
-        tempCardValues.put("name", "Explorer");
-        tempCard.setValues(tempCardValues);
-        tempCardList.add(tempCard);
-
-        //Groups
-        tempGroupsMap.put("hand", tempCardList);
-        tempGroups.setCardMap(tempGroupsMap);
-
-        //Numbers
-        ROOMGameNumbers tempNumbers = new ROOMGameNumbers();
-        Map<String, Integer> tempNumbersMap = new HashMap<>();
-        tempNumbersMap.put(getString(R.string.health_key), 2);
-        tempNumbers.setNumbers(tempNumbersMap);
-        tempBoard.setGroups(tempGroups);
-        tempBoard.setNumbers(tempNumbers);
-        temp.setBoardState(tempBoard);
-        gameStateDB.gameStateDao().updateEntry(temp);
-        Log.d("none", gameStateDB.gameStateDao().getAllEntries().get(0).getName());
-        Log.d("none", gameStateDB.gameStateDao().getAllEntries().get(0).getBoardState().getGroups()
-                .getCardMap().get("hand").get(0).getValues().get("name"));
-
-        /*
-        So basically some extra thread is required to host the gameloop.
-        This is a two way system...
-        gameloop requires certain input values
-        then UI thread needs to be notified and apply gamestate
-        */
-        //playerNameDisplay.requestFocus();
         ROOMCardGroups demoGroups = gameStateDB.gameStateDao().getAllEntries().get(0).getBoardState().getGroups();
         final List<ROOMCard> demoSet = demoGroups.getCardMap().get(getString(R.string.demo_full_set_name));
         addCardButton.setOnClickListener(new View.OnClickListener()
