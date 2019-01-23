@@ -9,6 +9,9 @@
     <string name="bundle_key">card</string>
     <string name="demo_full_set_name">demo-set</string>
     <string name="demo_hand_save">hand</string>
+    <string name="demo_simple_damage_value_key">damage</string>
+    <string name="demo_simple_value_separator">=</string>
+    <string name="demo_win_declaration">You won!</string>
     <string name="health_key">Health</string>
     <string name="player_label">Player:</string>
     <string name="opponent_label">Opponent:</string>
