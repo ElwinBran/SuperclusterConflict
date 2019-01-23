@@ -44,17 +44,15 @@ public class NormalGame extends FullscreenCompatActivity
 {
     private AppDatabase gameStateDB;
 
-    private final GameStateProperty state = new GameStateProperty(null);
-
     private TextView playerNameDisplay;
 
     private TextView opponentNameDisplay;
 
     private TextView healthDisplay;
 
-    private ROOMGameState pojoGameState;
+    private Button addCardButton;
 
-    private Function<ROOMGameState, GameState> domainTransformer;
+    private ROOMGameState pojoGameState;
 
     private LinearLayout playerCardDisplayView;
 
@@ -66,39 +64,13 @@ public class NormalGame extends FullscreenCompatActivity
         super.onCreate(savedInstance);
         gameStateDB = AppDatabase.getInstance(this);
         playerCardDisplayView = findViewById(R.id.player_cards_view);
-        domainTransformer = new ROOMToDomainConverter();
 
         playerNameDisplay = findViewById(R.id.player_name_text_view);
         opponentNameDisplay = findViewById(R.id.opponent_name_text_view);
         healthDisplay = findViewById(R.id.health_text_view);
         final LinearLayout opponentCardDisplayView = findViewById(R.id.opponent_cards_view);
-        final Button addCardButton = findViewById(R.id.add_button);
+        addCardButton = findViewById(R.id.add_button);
 
-        ROOMCardGroups demoGroups = gameStateDB.gameStateDao().getAllEntries().get(0).getBoardState().getGroups();
-        final List<ROOMCard> demoSet = demoGroups.getCardMap().get(getString(R.string.demo_full_set_name));
-        addCardButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Random randomizer = new Random();
-                ROOMCard randomDemoCard = demoSet.get(randomizer.nextInt(demoSet.size()));
-                addFragment(randomDemoCard);
-                List<ROOMCard> handCards = pojoGameState.getBoardState().getGroups().getCardMap().get(
-                        getString(R.string.demo_hand_save));
-                if(handCards == null)
-                {
-                    handCards = new ArrayList<>();
-                    pojoGameState.getBoardState().getGroups().getCardMap().put(getString(R.string.demo_hand_save), handCards);
-                }
-                handCards.add(randomDemoCard);
-                if(fragmentCount > 3)
-                {
-                    addCardButton.setClickable(false);
-                    addCardButton.setEnabled(false);
-                }
-            }
-        });
         playerCardDisplayView.setOnDragListener(new View.OnDragListener() {
             @Override
             public boolean onDrag(View view, DragEvent dragEvent)
@@ -174,10 +146,25 @@ public class NormalGame extends FullscreenCompatActivity
     {
         super.onStart();
 
-        pojoGameState = gameStateDB.gameStateDao().getAllEntries().get(0);
-        this.state.replace(domainTransformer.apply(pojoGameState));
-        playerNameDisplay.setText(state.currentState().playerSequence().firstPlayer().name());
-        opponentNameDisplay.setText(state.currentState().playerSequence().secondPlayer().name());
+        List<ROOMGameState> states = gameStateDB.gameStateDao().getAllEntries();
+        if(states == null || states.size() == 0)
+        {
+            ROOMGameState demoStartState = DemoGameGenerator.gameState(this);
+            gameStateDB.gameStateDao().insertEntry(demoStartState);
+            pojoGameState = demoStartState;
+        }
+        else
+        {
+            for (ROOMGameState state : gameStateDB.gameStateDao().getAllEntries())
+            {
+                if(state.getName().equals(getString(R.string.demo_game_state_name)))
+                {
+                    pojoGameState = state;
+                }
+            }
+        }
+        playerNameDisplay.setText(pojoGameState.getFirstPlayer().getName());
+        opponentNameDisplay.setText(pojoGameState.getSecondPlayer().getName());
         String healthKey = getString(R.string.health_key);
         String healthString = pojoGameState.getBoardState().getNumbers().getNumbers().get(healthKey).toString();
         healthDisplay.setText(healthString);
@@ -192,15 +179,44 @@ public class NormalGame extends FullscreenCompatActivity
                 addFragment(card);
             }
         }
-
+        final List<ROOMCard> demoSet = demoGroups.getCardMap().get(getString(R.string.demo_full_set_name));
+        addCardButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Random randomizer = new Random();
+                ROOMCard randomDemoCard = demoSet.get(randomizer.nextInt(demoSet.size()));
+                addFragment(randomDemoCard);
+                List<ROOMCard> handCards = pojoGameState.getBoardState().getGroups().getCardMap().get(
+                        getString(R.string.demo_hand_save));
+                if(handCards == null)
+                {
+                    handCards = new ArrayList<>();
+                    pojoGameState.getBoardState().getGroups().getCardMap().put(getString(R.string.demo_hand_save), handCards);
+                }
+                handCards.add(randomDemoCard);
+                if(fragmentCount > 3)
+                {
+                    addCardButton.setClickable(false);
+                    addCardButton.setEnabled(false);
+                }
+            }
+        });
     }
 
     private int fragmentCount = 0;
 
+    /**
+     * Used to update UI based on state changes.
+     * The POJO-state must be updated separately before this happens.
+     *
+     * @param newState
+     */
     private void updateUI(GameState newState)
     {
         //players
-
+        Log.d("none", "updateUI: called!");
         //numbers
 
         //cards
