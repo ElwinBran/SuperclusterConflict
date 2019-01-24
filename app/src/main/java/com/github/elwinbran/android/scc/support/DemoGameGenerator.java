@@ -25,7 +25,7 @@ public class DemoGameGenerator
     /**
      *
      * @param stringReferencer Requires calling activity to get strings.
-     * @return
+     * @return A fully functional game state that is the initial demo state.
      */
     public static ROOMGameState gameState(Activity stringReferencer)
     {
@@ -46,7 +46,7 @@ public class DemoGameGenerator
         ROOMCard tempCard = new ROOMCard();
         Map<String, String> tempCardValues = new HashMap<>();
         tempCardValues.put("flavor text", "Perhaps the most overlooked job of this age is gathering knowledge");
-        tempCardValues.put("effect", "none");
+        tempCardValues.put(stringReferencer.getString(R.string.demo_effect_key), "none");
         tempCardValues.put("name", "Explorer");
         tempCard.setValues(tempCardValues);
         tempCardList.add(tempCard);
@@ -54,7 +54,7 @@ public class DemoGameGenerator
         ROOMCard secondCard = new ROOMCard();
         Map<String, String> secondCardValues = new HashMap<>();
         secondCardValues.put("flavor text", "\"Sneaky guys...\"");
-        secondCardValues.put("effect",
+        secondCardValues.put(stringReferencer.getString(R.string.demo_effect_key),
                 stringReferencer.getString(R.string.demo_simple_damage_value_key) +
                         stringReferencer.getString(R.string.demo_simple_value_separator) + "1");
         secondCardValues.put("name", "Eel");
@@ -64,7 +64,7 @@ public class DemoGameGenerator
         ROOMCard thirdCard = new ROOMCard();
         Map<String, String> thirdCardValues = new HashMap<>();
         thirdCardValues.put("flavor text", "Bullets for breakfast, victory is dinner");
-        thirdCardValues.put("effect",
+        thirdCardValues.put(stringReferencer.getString(R.string.demo_effect_key),
                 stringReferencer.getString(R.string.demo_simple_damage_value_key) +
                         stringReferencer.getString(R.string.demo_simple_value_separator) + "2");
         thirdCardValues.put("name", "Fighter");
