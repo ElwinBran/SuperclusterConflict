@@ -210,7 +210,7 @@ public class NormalGame extends FullscreenCompatActivity
 
     private void playCard(View dragged)
     {
-        Log.d("none", Integer.toString(dragged.getId()));
+        //TODO: actually get the right fragment...
         Fragment cardFragment = getFragmentManager().findFragmentById(dragged.getId());
         playCard(cardFragment.getArguments());
     }
@@ -218,7 +218,7 @@ public class NormalGame extends FullscreenCompatActivity
     private void playCard(Bundle cardData)
     {
         ROOMCard pojoCard = cardData.getParcelable(getString(R.string.bundle_key));
-
+        String rawEffect = pojoCard.getValues().get(getString(R.string.demo_effect_key));
         //TODO: finish up the game code and update pojo state
     }
 

@@ -25,6 +25,7 @@ public class DemoCard extends Fragment
     {
         super.onCreateView(inflater, parent, savedInstanceState);
         View fragment = inflater.inflate(R.layout.fragment_card, parent, false);
+        fragment.setId(getId());
         Bundle args = getArguments();
         setContent(fragment, args);
         return fragment;
