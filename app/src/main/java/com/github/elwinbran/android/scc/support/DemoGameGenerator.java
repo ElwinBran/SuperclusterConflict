@@ -78,7 +78,7 @@ public class DemoGameGenerator
         //Numbers
         ROOMGameNumbers tempNumbers = new ROOMGameNumbers();
         Map<String, Integer> tempNumbersMap = new HashMap<>();
-        tempNumbersMap.put(stringReferencer.getString(R.string.health_key), 2);
+        tempNumbersMap.put(stringReferencer.getString(R.string.health_key), 10);
         tempNumbers.setNumbers(tempNumbersMap);
         tempBoard.setGroups(tempGroups);
         tempBoard.setNumbers(tempNumbers);
