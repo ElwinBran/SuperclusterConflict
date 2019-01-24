@@ -4,6 +4,10 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.arch.core.util.Function;
+import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.DragEvent;
@@ -219,7 +223,38 @@ public class NormalGame extends FullscreenCompatActivity
     {
         ROOMCard pojoCard = cardData.getParcelable(getString(R.string.bundle_key));
         String rawEffect = pojoCard.getValues().get(getString(R.string.demo_effect_key));
-        //TODO: finish up the game code and update pojo state
+        Integer damageKeyIndex = rawEffect.indexOf(getString(R.string.demo_simple_damage_value_key));
+        if(damageKeyIndex != -1)
+        {
+            Log.d("none", rawEffect);
+            int index = rawEffect.indexOf(getString(R.string.demo_simple_value_separator)) + 1;
+            String value = rawEffect.substring(index, rawEffect.length());
+            Integer damageValue = Integer.decode(value);
+            Integer newHealth =
+                    pojoGameState.getBoardState().getNumbers().getNumbers().get(getString(R.string.health_key))
+                            - damageValue;
+            healthDisplay.setText(newHealth.toString());
+            if (newHealth < 1)
+            {
+                Intent wonMessage = new Intent(this, DemoWonActivity.class);
+                try
+                {
+                    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                    Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+                    r.play();
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+                gameStateDB.gameStateDao().deleteEntry(pojoGameState);
+                startActivity(wonMessage);
+            }
+            else
+            {
+                pojoGameState.getBoardState().getNumbers().getNumbers().put(getString(R.string.health_key), newHealth);
+            }
+        }
     }
 
 
