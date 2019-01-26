@@ -23,6 +23,8 @@ public class RetroStatistics extends GameStatisticsViewModel
 
     private final StatisticApiService service = StatisticApiService.retrofit.create(StatisticApiService.class);
 
+    private final String key;
+
     /**
      * Primary constructor.
      *
@@ -30,6 +32,7 @@ public class RetroStatistics extends GameStatisticsViewModel
      */
     public RetroStatistics(String key)
     {
+        this.key = key;
         service.readStatistic(key).enqueue(new Callback<JSONStatistic>()
         {
             @Override
@@ -55,18 +58,37 @@ public class RetroStatistics extends GameStatisticsViewModel
     @Override
     public void incrementWins()
     {
-        //TODO: implement
+        service.readStatistic(this.key).enqueue(new Callback<JSONStatistic>() {
+            @Override
+            public void onResponse(Call<JSONStatistic> call, Response<JSONStatistic> response)
+            {
+                JSONStatistic old = response.body();
+                JSONStatistic newS = new JSONStatistic(((int)(long)old.wins() + 1), (int)(long)old.losses());
+                service.updateStatistics(newS, RetroStatistics.this.key);
+            }
+
+            @Override
+            public void onFailure(Call<JSONStatistic> call, Throwable t)
+            {
+
+            }
+        });
+
+
     }
 
     @Override
     public void incrementLosses()
     {
-        //TODO: implement
+        Statistic old = liveStatistic.getValue();
+        service.updateStatistics(
+                new JSONStatistic(((int)(long)old.wins()), (int)(long)old.losses() + 1),
+                this.key);
     }
 
     @Override
     public void reset()
     {
-        //TODO: implement
+        service.updateStatistics(new JSONStatistic(0,0), this.key);
     }
 }

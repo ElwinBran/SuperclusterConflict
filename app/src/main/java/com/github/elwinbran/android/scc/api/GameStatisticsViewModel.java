@@ -3,8 +3,6 @@ package com.github.elwinbran.android.scc.api;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.github.elwinbran.android.scc.api.Statistic;
-
 /**
  * The game statistics behaviour.
  *

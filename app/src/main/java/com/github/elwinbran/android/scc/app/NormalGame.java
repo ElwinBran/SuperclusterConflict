@@ -3,13 +3,11 @@ package com.github.elwinbran.android.scc.app;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.arch.core.util.Function;
 import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,25 +15,17 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.github.elwinbran.android.scc.Board;
 import com.github.elwinbran.android.scc.GameState;
 import com.github.elwinbran.android.scc.api.AppDatabase;
-import com.github.elwinbran.android.scc.backend.ROOMBoard;
+import com.github.elwinbran.android.scc.api.GameStatisticsViewModel;
 import com.github.elwinbran.android.scc.backend.ROOMCard;
 import com.github.elwinbran.android.scc.backend.ROOMCardGroups;
-import com.github.elwinbran.android.scc.backend.ROOMGameNumbers;
 import com.github.elwinbran.android.scc.backend.ROOMGameState;
-import com.github.elwinbran.android.scc.backend.ROOMPlayer;
+import com.github.elwinbran.android.scc.backend.RetroStatistics;
 import com.github.elwinbran.android.scc.fragments.DemoCard;
 import com.github.elwinbran.android.scc.support.DemoGameGenerator;
-import com.github.elwinbran.android.scc.support.GameStateProperty;
-import com.github.elwinbran.android.scc.support.ROOMToDomainConverter;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 /**
@@ -89,18 +79,14 @@ public class NormalGame extends FullscreenCompatActivity
                     case DragEvent.ACTION_DRAG_STARTED:
                         break;
                     case DragEvent.ACTION_DRAG_ENTERED:
-                        Log.d("none", "onDrag: enter");
                         break;
                     case DragEvent.ACTION_DRAG_EXITED:
-                        Log.d("none", "onDrag: left");
                         break;
                     case DragEvent.ACTION_DROP:
-                        Log.d("none", "onDrag: end drag");
                         tempView = (View) dragEvent.getLocalState();
                         tempView.setVisibility(View.VISIBLE);
                         break;
                     case DragEvent.ACTION_DRAG_ENDED:
-                        Log.d("none", "onDrag: dropped");
                         tempView = (View) dragEvent.getLocalState();
                         tempView.setVisibility(View.VISIBLE);
                     default:
@@ -118,13 +104,10 @@ public class NormalGame extends FullscreenCompatActivity
                     case DragEvent.ACTION_DRAG_STARTED:
                         break;
                     case DragEvent.ACTION_DRAG_ENTERED:
-                        Log.d("none", "onDrag: oppo enter");
                         break;
                     case DragEvent.ACTION_DRAG_EXITED:
-                        Log.d("none", "onDrag: oppo left");
                         break;
                     case DragEvent.ACTION_DROP:
-                        Log.d("none", "onDrag: oppo end drag");
                         View viewT = (View) dragEvent.getLocalState();
                         ViewGroup owner = (ViewGroup) viewT.getParent();
                         owner.removeView(viewT);
@@ -132,7 +115,6 @@ public class NormalGame extends FullscreenCompatActivity
                         playCard(viewT);
                         break;
                     case DragEvent.ACTION_DRAG_ENDED:
-                        Log.d("none", "onDrag: oppo dropped");
                     default:
                         break;
                 }
@@ -226,7 +208,6 @@ public class NormalGame extends FullscreenCompatActivity
         Integer damageKeyIndex = rawEffect.indexOf(getString(R.string.demo_simple_damage_value_key));
         if(damageKeyIndex != -1)
         {
-            Log.d("none", rawEffect);
             int index = rawEffect.indexOf(getString(R.string.demo_simple_value_separator)) + 1;
             String value = rawEffect.substring(index, rawEffect.length());
             Integer damageValue = Integer.decode(value);
@@ -248,6 +229,8 @@ public class NormalGame extends FullscreenCompatActivity
                     e.printStackTrace();
                 }
                 gameStateDB.gameStateDao().deleteEntry(pojoGameState);
+                GameStatisticsViewModel model = new RetroStatistics(BuildConfig.ApiKey);
+                model.incrementWins();
                 startActivity(wonMessage);
             }
             else
@@ -267,7 +250,6 @@ public class NormalGame extends FullscreenCompatActivity
     private void updateUI(GameState newState)
     {
         //players
-        Log.d("none", "updateUI: called!");
         //numbers
 
         //cards

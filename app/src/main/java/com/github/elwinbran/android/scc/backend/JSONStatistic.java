@@ -24,6 +24,12 @@ public class JSONStatistic implements Serializable, Statistic
 
     public JSONStatistic() {}
 
+    public JSONStatistic(int wins, int losses)
+    {
+        this.wins = wins;
+        this.losses = losses;
+    }
+
     @Override
     public Long wins()
     {
