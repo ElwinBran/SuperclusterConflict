@@ -26,6 +26,7 @@ import com.github.elwinbran.android.scc.fragments.DemoCard;
 import com.github.elwinbran.android.scc.support.DemoGameGenerator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -205,6 +206,9 @@ public class NormalGame extends FullscreenCompatActivity
     {
         ROOMCard pojoCard = cardData.getParcelable(getString(R.string.bundle_key));
         String rawEffect = pojoCard.getValues().get(getString(R.string.demo_effect_key));
+        Map<String, List<ROOMCard>> pojoMap = pojoGameState.getBoardState().getGroups().getCardMap();
+        List<ROOMCard> pojoHand = pojoMap.get(getString(R.string.demo_hand_save));
+        pojoHand.remove(pojoCard);
         Integer damageKeyIndex = rawEffect.indexOf(getString(R.string.demo_simple_damage_value_key));
         if(damageKeyIndex != -1)
         {

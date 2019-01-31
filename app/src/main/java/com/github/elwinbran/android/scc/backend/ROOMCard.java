@@ -88,4 +88,28 @@ public class ROOMCard implements Parcelable
         parcel.writeInt(id);
         parcel.writeString(ROOMCardConverters.stringFromMap(values));
     }
+
+    @Override
+    public boolean equals(Object other)
+    {
+        if(other == null)
+        {
+            return false;
+        }
+        if(other instanceof ROOMCard)
+        {
+            ROOMCard otherCard = (ROOMCard) other;
+            Map<String, String> otherValues = otherCard.values;
+            for(String key : values.keySet())
+            {
+                if(!values.get(key).equals(otherValues.get(key)))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
 }
