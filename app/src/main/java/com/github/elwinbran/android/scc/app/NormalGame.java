@@ -200,6 +200,8 @@ public class NormalGame extends FullscreenCompatActivity
         //TODO: actually get the right fragment...
         Fragment cardFragment = getFragmentManager().findFragmentById(dragged.getId());
         playCard(cardFragment.getArguments());
+        addCardButton.setClickable(true);
+        addCardButton.setEnabled(true);
     }
 
     private void playCard(Bundle cardData)
